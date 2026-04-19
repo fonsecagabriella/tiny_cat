@@ -3,28 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiny Cat 🐱</title>
+  <title>TINY CAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <!-- ── Welcome Screen ─────────────────────────────────────────── -->
   <div id="welcome-screen" class="screen">
-    <h1 class="welcome-title">🐱 Tiny Cat</h1>
-    <p class="welcome-subtitle">Your very own virtual cat companion</p>
+    <div class="welcome-header">
+      <p class="welcome-eyebrow">// VIRTUAL PET SYS v1.0</p>
+      <h1 class="welcome-title">TINY CAT</h1>
+      <p class="welcome-subtitle">INSERT NAME TO BEGIN</p>
+    </div>
     <div class="welcome-form">
       <div class="form-group">
-        <label for="cat-name">Name your cat</label>
-        <input type="text" id="cat-name" maxlength="20" placeholder="e.g. Mochi" autocomplete="off">
+        <label for="cat-name">CAT NAME_</label>
+        <input type="text" id="cat-name" maxlength="20" placeholder="ENTER NAME" autocomplete="off" spellcheck="false">
       </div>
       <div class="form-group">
-        <label>Pick a fur colour</label>
+        <label>FUR COLOUR_</label>
         <div class="colour-picker-row">
           <input type="color" id="cat-colour" value="#f4a261">
-          <span class="colour-label">Your cat's fur will be this colour</span>
+          <span class="colour-label">SELECT COLOUR</span>
         </div>
       </div>
-      <button id="start-btn" class="btn btn-primary" disabled>Adopt Cat 🐾</button>
+      <button id="start-btn" class="btn btn-primary" disabled>&#9658; START</button>
     </div>
   </div>
 
@@ -33,7 +39,7 @@
 
     <div class="game-header">
       <span id="cat-name-display"></span>
-      <span id="state-label" class="state-label">Normal</span>
+      <span id="state-label" class="state-label">NORMAL</span>
     </div>
 
     <div id="cat-sprite-container"></div>
@@ -44,44 +50,44 @@
 
     <div class="stats">
       <div class="stat-row">
-        <label>Hunger</label>
+        <label>HNG</label>
         <div class="stat-bar"><div id="hunger-bar" class="bar-fill" style="width:80%"></div></div>
         <span id="hunger-val" class="stat-val">80</span>
       </div>
       <div class="stat-row">
-        <label>Happiness</label>
+        <label>HAP</label>
         <div class="stat-bar"><div id="happiness-bar" class="bar-fill" style="width:80%"></div></div>
         <span id="happiness-val" class="stat-val">80</span>
       </div>
       <div class="stat-row">
-        <label>Energy</label>
+        <label>NRG</label>
         <div class="stat-bar"><div id="energy-bar" class="bar-fill" style="width:80%"></div></div>
         <span id="energy-val" class="stat-val">80</span>
       </div>
     </div>
 
     <div class="actions">
-      <button id="feed-btn"  class="btn btn-feed">🍽 Feed</button>
-      <button id="play-btn"  class="btn btn-play">🎾 Play</button>
-      <button id="rest-btn"  class="btn btn-rest">💤 Rest</button>
-      <button id="pet-btn"   class="btn btn-pet hidden">🤚 Pet</button>
+      <button id="feed-btn"  class="btn btn-feed">FEED</button>
+      <button id="play-btn"  class="btn btn-play">PLAY</button>
+      <button id="rest-btn"  class="btn btn-rest">REST</button>
+      <button id="pet-btn"   class="btn btn-pet hidden">PET</button>
     </div>
 
     <div id="message-area"></div>
 
     <div class="footer-row">
-      <button id="new-cat-btn" class="btn btn-ghost">New Cat</button>
+      <button id="new-cat-btn" class="btn btn-ghost">NEW GAME</button>
     </div>
 
     <!-- Food panel -->
     <div id="food-panel" class="panel hidden">
-      <h3>What to feed?</h3>
+      <h3>// SELECT FOOD</h3>
       <div class="panel-options">
-        <button class="food-option btn" data-food="kibble">🥣 Kibble</button>
-        <button class="food-option btn" data-food="tuna">🐟 Tuna</button>
-        <button class="food-option btn" data-food="treats">🍗 Treats</button>
+        <button class="food-option btn" data-food="kibble">KIBBLE</button>
+        <button class="food-option btn" data-food="tuna">TUNA</button>
+        <button class="food-option btn" data-food="treats">TREATS</button>
       </div>
-      <button id="food-cancel">Cancel</button>
+      <button id="food-cancel">[ CANCEL ]</button>
     </div>
 
   </div><!-- /game-screen -->
@@ -91,11 +97,11 @@
   <!-- Belly event -->
   <div id="belly-overlay" class="overlay hidden">
     <div class="overlay-content">
-      <p style="font-size:2.5rem;margin-bottom:8px">🐾</p>
-      <p>Your cat is showing its belly.<br>Do you dare to pet it?</p>
+      <p class="overlay-icon">~^.^~</p>
+      <p>CAT IS SHOWING BELLY.<br>DO YOU DARE TO PET?</p>
       <div class="overlay-btns">
-        <button id="belly-yes" class="btn btn-pet">Yes! 🤚</button>
-        <button id="belly-no"  class="btn btn-ghost">No thanks</button>
+        <button id="belly-yes" class="btn btn-pet">YES</button>
+        <button id="belly-no"  class="btn btn-ghost">NO</button>
       </div>
     </div>
   </div>
@@ -103,10 +109,10 @@
   <!-- Evolution -->
   <div id="evolution-overlay" class="overlay hidden">
     <div class="overlay-content">
-      <p style="font-size:2.5rem;margin-bottom:4px">✨</p>
+      <p class="overlay-icon">* * *</p>
       <h2 id="evolved-name"></h2>
-      <p>They've grown up! Their needs slow down as they mature.</p>
-      <button id="evolution-ok" class="btn btn-primary" style="width:100%">Amazing! 🌟</button>
+      <p>EVOLVED! DECAY RATE<br>HAS DECREASED.</p>
+      <button id="evolution-ok" class="btn btn-primary" style="width:100%">&#9658; CONTINUE</button>
     </div>
   </div>
 
@@ -115,8 +121,8 @@
     <div class="overlay-content">
       <p id="confirm-message"></p>
       <div class="overlay-btns">
-        <button id="confirm-yes" class="btn btn-primary">Yes</button>
-        <button id="confirm-no"  class="btn btn-ghost">No</button>
+        <button id="confirm-yes" class="btn btn-primary">YES</button>
+        <button id="confirm-no"  class="btn btn-ghost">NO</button>
       </div>
     </div>
   </div>
