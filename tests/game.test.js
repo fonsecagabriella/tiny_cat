@@ -89,10 +89,10 @@ test('Stats never exceed 100 after Rest', function () {
 
 // ─── Poo Drain ───────────────────────────────────────────────────────────────
 
-test('Poo drain: 3 poos drain 3 happiness per tick', function () {
+test('Poo drain: 3 poos drain 30 happiness per tick', function () {
   var cat = createCat({ happiness: 60, poos: 3 });
   applyPooDrain(cat);
-  assertEqual(cat.happiness, 57);
+  assertEqual(cat.happiness, 30);
 });
 test('No poos: no happiness drain', function () {
   var cat = createCat({ happiness: 60, poos: 0 });

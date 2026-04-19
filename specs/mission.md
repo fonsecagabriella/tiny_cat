@@ -83,6 +83,7 @@ If the selected food would push Hunger past 100, Hunger is set to 100 and a poo 
 | Natural overflow | Hunger has been at 100 for 10 consecutive ticks |
 
 - Each poo that appears reduces Happiness by 5 immediately.
+- Each poo present drains an additional **10 Happiness per tick**.
 - Maximum of 5 poos on screen simultaneously. No new poos are created once the limit is reached.
 - User cleans a poo by clicking on it; a confirmation message appears before cleaning.
 - Poos contribute to Sick if left uncleaned (see States).

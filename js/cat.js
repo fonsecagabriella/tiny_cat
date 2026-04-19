@@ -55,7 +55,7 @@ function applyEnergyHappinessPenalty(cat) {
 
 function applyPooDrain(cat) {
   if (cat.poos > 0) {
-    cat.happiness = clamp(cat.happiness - cat.poos, 0, 100);
+    cat.happiness = clamp(cat.happiness - (cat.poos * 10), 0, 100);
   }
 }
 
