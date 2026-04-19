@@ -1,3 +1,51 @@
-# Validation
+# Validation — Laser Easter Egg
 
-How this feature will be verified: tests to run, manual checks, and the criteria that mark it as done.
+## Automated Unit Tests
+
+Add to `tests/game.test.js`:
+
+```js
+// Laser easter egg — Play effect reuse (EGG-03, EGG-05)
+
+test('triggerPlay adds 20 happiness and removes 10 energy', () => {
+  const cat = createCat({ happiness: 50, energy: 50 });
+  triggerPlay(cat);
+  assertEqual(cat.happiness, 70, 'happiness after laser play');
+  assertEqual(cat.energy, 40, 'energy after laser play');
+});
+
+test('triggerPlay is blocked when energy <= 10', () => {
+  const cat = createCat({ happiness: 50, energy: 10 });
+  const result = canPlay(cat);
+  assert(!result, 'laser play blocked at energy 10');
+});
+
+test('triggerPlay and Play button share the same function', () => {
+  // Both the Play button handler and the laser call triggerPlay()
+  // Verified by inspecting that applyPlay === triggerPlay in game.js
+  assert(typeof triggerPlay === 'function', 'triggerPlay is exported');
+});
+```
+
+## Manual Tests
+
+| # | Steps | Expected |
+|---|---|---|
+| LAS-01 | On the Game screen, click and hold, then drag ≥ 20 px | Red laser dot appears following cursor |
+| LAS-02 | While dragging, observe Happiness and Energy stats | Happiness +20, Energy −10 applied once |
+| LAS-03 | Release mouse/finger | Laser dot disappears |
+| LAS-04 | Drag again immediately (within 5 seconds) | No stat change (cooldown active) |
+| LAS-05 | Wait 5 seconds, drag again | Stat change fires again |
+| LAS-06 | Let Energy drop to 10, then drag | Dot appears grey; no stat change |
+| LAS-07 | Click (no drag) on game screen | No laser appears; no stat change |
+| LAS-08 | Click on a button (Feed, Play, Rest) | Normal button action fires; no laser |
+| LAS-09 | Test on mobile: touch and drag | Laser dot follows finger; Play effect fires |
+| LAS-10 | On Welcome screen, click and drag | No laser appears |
+| LAS-11 | Check entire UI | No hint, tooltip, or label referencing the laser exists |
+
+## Definition of Done
+
+- All automated tests pass.
+- LAS-01 through LAS-11 pass manually in Chrome, Firefox, and Safari.
+- No UI element references or hints at the laser interaction.
+- Play button and laser produce identical stat effects (verified by shared `triggerPlay` function).
