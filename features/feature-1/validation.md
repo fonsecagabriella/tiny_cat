@@ -49,3 +49,14 @@ test('triggerPlay and Play button share the same function', () => {
 - LAS-01 through LAS-11 pass manually in Chrome, Firefox, and Safari.
 - No UI element references or hints at the laser interaction.
 - Play button and laser produce identical stat effects (verified by shared `triggerPlay` function).
+
+---
+
+## Known Issues
+
+| # | Description | Affected file(s) | Status |
+|---|---|---|---|
+| KI-01 | `tests/game.test.js` is written as a browser-only vanilla JS runner; it is not compatible with Jest/Node as required by `tech-stack.md`. Tests must be rewritten to use Jest syntax (`require`, `module.exports`, `describe`/`it`) before CI can run. | `tests/game.test.js`, `tests/runner.html` | Open |
+| KI-02 | `specs/tech-stack.md` states "no third-party libraries" under **No dependencies** but the new Testing & CI section introduces Jest and npm. The two sections are contradictory — the No dependencies clause should be scoped to the shipped app only, not the dev toolchain. | `specs/tech-stack.md` | Open |
+| KI-03 | The `.github/workflows/test.yml` CI workflow and `package.json` do not yet exist; CI cannot run until they are created. | — | Open |
+| KI-04 | The belly-showing event belly counter is not reset when a tick fires while `bellyActive = true` and happiness falls below 100 mid-event — the counter stays at its last value rather than resetting, potentially re-triggering immediately after the overlay closes. | `js/cat.js` → `updateCounters` | Open |
