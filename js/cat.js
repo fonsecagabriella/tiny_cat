@@ -37,11 +37,20 @@ function clamp(val, min, max) {
 
 function applyDecay(cat) {
   const d = cat.evolved
-    ? { hunger: 1.5, happiness: 1, energy: 2 }
-    : { hunger: 3,   happiness: 2, energy: 4 };
+    ? { hunger: 2.5, happiness: 1.5, energy: 3 }
+    : { hunger: 5,   happiness: 3,   energy: 6 };
   cat.hunger    = clamp(cat.hunger    - d.hunger,    0, 100);
   cat.happiness = clamp(cat.happiness - d.happiness, 0, 100);
   cat.energy    = clamp(cat.energy    - d.energy,    0, 100);
+}
+
+// Low energy drains happiness — applied each tick after decay
+function applyEnergyHappinessPenalty(cat) {
+  if (cat.energy < 20) {
+    cat.happiness = clamp(cat.happiness - 25, 0, 100);
+  } else if (cat.energy < 50) {
+    cat.happiness = clamp(cat.happiness - 10, 0, 100);
+  }
 }
 
 function applyPooDrain(cat) {
@@ -75,6 +84,7 @@ function applyPlay(cat) {
   if (!canPlay(cat)) return false;
   cat.happiness = clamp(cat.happiness + 20, 0, 100);
   cat.energy    = clamp(cat.energy    - 10, 0, 100);
+  cat.hunger    = clamp(cat.hunger    - 10, 0, 100);
   return true;
 }
 
@@ -175,11 +185,14 @@ function cleanPoo(cat) {
 }
 
 // One full tick — returns triggered events
+// updateCounters runs first so fullHungerTicks/bellyTicks/evolvedTicks are
+// evaluated against pre-decay stat values, then decay + penalties are applied.
 function runTick(cat) {
   var events = { naturalpoo: false, sick: false, evolved: false, belly: false, recovery: false };
-  applyDecay(cat);
-  applyPooDrain(cat);
   updateCounters(cat);
+  applyDecay(cat);
+  applyEnergyHappinessPenalty(cat);
+  applyPooDrain(cat);
   if (triggerNaturalPoo(cat))  events.naturalpoo = true;
   if (triggerSick(cat))        events.sick        = true;
   if (checkBellyEvent(cat))    events.belly       = true;

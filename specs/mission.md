@@ -33,12 +33,22 @@ Demonstrate a complete, polished, interactive front-end application: real-time s
 
 | Stat | Range | Normal decay | Evolved decay | Notes |
 |---|---|---|---|---|
-| Hunger | 0–100 | −3 per tick | −1.5 per tick | 100 = full; triggers poo on overflow |
-| Happiness | 0–100 | −2 per tick | −1 per tick | 100 = very happy; triggers belly event on overflow |
-| Energy | 0–100 | −4 per tick | −2 per tick | 100 = fully rested |
+| Hunger | 0–100 | −5 per tick | −2.5 per tick | 100 = full; triggers poo on overflow |
+| Happiness | 0–100 | −3 per tick | −1.5 per tick | 100 = very happy; triggers belly event on overflow |
+| Energy | 0–100 | −6 per tick | −3 per tick | 100 = fully rested |
 
 **Tick interval:** 60 seconds (real time).
 Stats floor at 0 and cap at 100. Feeding when Hunger = 100, or playing when Energy ≤ 10, triggers overflow behaviour rather than exceeding the cap.
+
+### Energy → Happiness penalty (applied each tick after decay)
+
+| Energy level | Happiness lost per tick |
+|---|---|
+| Energy < 20 | −25 |
+| Energy 20–49 | −10 |
+| Energy ≥ 50 | no penalty |
+
+Penalties do not stack — only the stricter threshold applies.
 
 ---
 
@@ -47,7 +57,7 @@ Stats floor at 0 and cap at 100. Feeding when Hunger = 100, or playing when Ener
 | Action | Effect | Constraints |
 |---|---|---|
 | Feed | Opens food selection (3 options); selected food increases Hunger | If Hunger = 100, action creates a poo instead; disabled if poo count = 5 |
-| Play | Happiness +20, Energy −10 | Disabled if Energy ≤ 10 |
+| Play | Happiness +20, Energy −10, Hunger −10 | Disabled if Energy ≤ 10 |
 | Rest | Energy +30, Happiness −5 | Happiness floored at 0 |
 | Pet | Random outcome: Purr (Happiness +15) or Attack (Happiness −20) | Only available during a belly-showing event |
 
