@@ -73,7 +73,7 @@ Definition of done: A cat can be driven into Sick state (both paths) and fully r
 
 ---
 
-## Phase 5 — Easter Eggs
+## ✅ Phase 5 — Easter Eggs
 
 **Goal:** Two hidden interactions reward curious and attentive players without breaking the game loop.
 
@@ -116,12 +116,12 @@ Definition of done: Both Easter eggs are triggerable through normal play. Neithe
 Deliverables:
 - Consistent visual design (colour palette, typography, spacing)
 - Responsive layout: playable on mobile (≥ 320 px wide) and desktop
-- Smooth CSS transitions on stat bar changes and state switches
+- Stat labels shown in full on screen: 'Food' (display only), 'Happiness', 'Energy'
 - Page Visibility API: elapsed ticks computed and applied on tab return
 - Final GitHub Pages deployment with correct base URL
 - Manual cross-browser check: Chrome, Firefox, Safari
 
-Definition of done: App is live at the GitHub Pages URL and passes all success criteria in `mission.md` and all smoke tests in `validation.md`.
+Definition of done: App is live at the GitHub Pages URL and passes all success criteria in `mission.md` and all smoke tests in `validation.md`. Stat labels display in full with no abbreviations.
 
 ---
 

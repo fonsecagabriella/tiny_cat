@@ -52,6 +52,12 @@ Demonstrate a complete, polished, interactive front-end application: real-time s
 | Energy | 0–100 | −4 per tick | −2 per tick | 100 = fully rested |
 
 **Tick interval:** 30 seconds (real time).
+
+### Display Labels
+
+The internal stat name 'Hunger' is displayed as 'Food' on the game screen only.
+All other stat names (Happiness, Energy) are displayed in full — no abbreviations anywhere.
+This is a display-only change — all internal code, variable names, and test references continue to use 'hunger'.
 Stats floor at 0 and cap at 100. Feeding when Hunger = 100, or playing when Energy ≤ 10, triggers overflow behaviour rather than exceeding the cap.
 
 ### Energy → Happiness penalty (applied each tick after decay)
