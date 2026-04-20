@@ -403,9 +403,25 @@ function hideOverlay(id) {
   document.getElementById(id).classList.add('hidden');
 }
 
+function formatElapsedTime(ms) {
+  var totalSeconds = Math.floor(ms / 1000);
+  var minutes = Math.floor(totalSeconds / 60);
+  var seconds  = totalSeconds % 60;
+  return minutes + 'm ' + seconds + 's';
+}
+
 function showEvolutionOverlay() {
-  document.getElementById('evolved-name').textContent = cat.name + ' evolved!';
+  var timeStr = formatElapsedTime(Date.now() - sessionStartTime);
+  document.getElementById('evolved-name').textContent  = cat.name + ' evolved!';
+  document.getElementById('evolved-time').textContent  = timeStr;
   showOverlay('evolution-overlay');
+}
+
+function renderEvolutionBadge(timeStr) {
+  var badge = document.getElementById('evolution-badge');
+  if (!badge || !cat) return;
+  badge.textContent = cat.name + ' evolved in ' + timeStr;
+  badge.classList.remove('hidden');
 }
 
 // ─── Confirm helper ───────────────────────────────────────────────────────────
@@ -434,9 +450,10 @@ function onPooClick(e) {
 
 // ─── Laser Easter Egg ─────────────────────────────────────────────────────────
 
-var laserDot        = null;
-var laserDragStart  = null;
-var laserFired      = false;
+var laserDot           = null;
+var laserDragStart     = null;
+var laserFired         = false;
+var laserDragged       = false;
 var laserCooldownUntil = 0;
 
 function initLaser() {
@@ -459,6 +476,7 @@ function initLaser() {
     var pos  = getPos(e);
     var dist = Math.hypot(pos.x - laserDragStart.x, pos.y - laserDragStart.y);
     if (dist < 20) return;
+    laserDragged = true;
 
     // Show laser dot
     if (!laserDot) {
@@ -476,6 +494,7 @@ function initLaser() {
       laserFired = true;
       var played = triggerPlay(cat);
       if (played) {
+        cat.playCount++;
         laserCooldownUntil = Date.now() + 5000;
         checkSickRecovery(cat);
         renderGame({});
@@ -487,6 +506,8 @@ function initLaser() {
   function onDragEnd() {
     laserDragStart = null;
     if (laserDot) { laserDot.remove(); laserDot = null; }
+    // Reset after click event has had a chance to fire
+    setTimeout(function () { laserDragged = false; }, 0);
   }
 
   area.addEventListener('mousedown',  onDragStart);
@@ -496,6 +517,44 @@ function initLaser() {
   area.addEventListener('touchstart', onDragStart, { passive: true });
   area.addEventListener('touchmove',  onDragMove,  { passive: true });
   area.addEventListener('touchend',   onDragEnd);
+}
+
+// ─── Tap to Pet Easter Egg ────────────────────────────────────────────────────
+
+var tapMarkTimer = null;
+
+function showTapMark(type) {
+  var mark = document.getElementById('tap-mark');
+  if (!mark) return;
+  if (tapMarkTimer) clearTimeout(tapMarkTimer);
+  mark.textContent = type === 'heart' ? '♥' : '!!';
+  mark.className   = type === 'heart' ? 'tap-purr' : 'tap-angry';
+  tapMarkTimer = setTimeout(function () {
+    mark.classList.add('hidden');
+  }, 1500);
+}
+
+function initTapPet() {
+  document.getElementById('cat-sprite-container').addEventListener('click', function () {
+    if (!cat) return;
+    if (cat.sick || cat.bellyActive) return;
+    if (laserDragged) return;
+
+    var trust   = cat.feedCount >= 1 && cat.playCount >= 1;
+    var willing = trust && cat.hunger > 75 && cat.happiness > 75 && cat.energy > 75;
+
+    if (willing) {
+      cat.happiness = clamp(cat.happiness + 10, 0, 100);
+      showTapMark('heart');
+      showMessage('Purr… ♥', 2000);
+    } else {
+      cat.happiness = clamp(cat.happiness - 15, 0, 100);
+      cat.energy    = clamp(cat.energy    - 10, 0, 100);
+      showTapMark('angry');
+      showMessage('Ouch! Bad timing.', 2000);
+    }
+    renderGame({});
+  });
 }
 
 // ─── Event listeners ──────────────────────────────────────────────────────────
@@ -559,6 +618,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.addEventListener('click', function () {
       var food   = btn.dataset.food;
       var result = applyFeed(cat, food);
+      if (result === 'ok' || result === 'poo') cat.feedCount++;
       document.getElementById('food-panel').classList.add('hidden');
       checkSickRecovery(cat);
       renderGame({});
@@ -582,6 +642,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('play-btn').addEventListener('click', function () {
     if (!canPlay(cat)) return;
     applyPlay(cat);
+    cat.playCount++;
     checkSickRecovery(cat);
     renderGame({});
     showMessage(cat.name + ' plays! +20 Happiness, -10 Energy', 2000);
@@ -619,6 +680,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Evolution overlay
   document.getElementById('evolution-ok').addEventListener('click', function () {
+    var timeStr = document.getElementById('evolved-time').textContent;
+    renderEvolutionBadge(timeStr);
     hideOverlay('evolution-overlay');
   });
 
@@ -647,4 +710,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Laser
   initLaser();
+
+  // Tap to Pet
+  initTapPet();
 });

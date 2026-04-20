@@ -1,11 +1,13 @@
 // game.js — Tick engine and page visibility handling
 
-var cat         = null;
-var tickInterval = null;
-var hiddenAt    = null;
+var cat              = null;
+var tickInterval     = null;
+var hiddenAt         = null;
+var sessionStartTime = null;
 
 function startGame(newCat) {
-  cat = newCat;
+  cat              = newCat;
+  sessionStartTime = Date.now();
   stopGame();
   tickInterval = setInterval(onTick, 30000);
   document.addEventListener('visibilitychange', onVisibilityChange);

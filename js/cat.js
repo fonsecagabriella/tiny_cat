@@ -28,6 +28,9 @@ function createCat(opts) {
     sick:        opts.sick        || false,
     evolved:     opts.evolved     || false,
     bellyActive: opts.bellyActive || false,
+
+    feedCount:   opts.feedCount  || 0,
+    playCount:   opts.playCount  || 0,
   };
 }
 

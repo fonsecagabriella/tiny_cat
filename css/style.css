@@ -289,9 +289,9 @@ body::after {
   align-items: center;
   height: 190px;
   margin-bottom: 8px;
-  pointer-events: none;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  cursor: default;
 }
 
 .cat-svg {
@@ -299,7 +299,34 @@ body::after {
   width: auto;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  pointer-events: none;
   transition: transform 0.2s steps(3);
+}
+
+/* ── Tap-Pet Mark ─────────────────────────────────────────────────────────── */
+#tap-mark {
+  position: absolute;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  pointer-events: none;
+  z-index: 5;
+  top: 110px;
+  right: 28px;
+  letter-spacing: 1px;
+}
+#tap-mark.tap-purr  { color: var(--accent-magenta); }
+#tap-mark.tap-angry { color: var(--danger); }
+
+/* ── Evolution Badge ──────────────────────────────────────────────────────── */
+#evolution-badge {
+  font-size: 6px;
+  color: var(--accent-yellow);
+  text-align: center;
+  padding: 4px 8px;
+  border: 1px solid var(--accent-yellow);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  opacity: 0.85;
 }
 
 .cat-svg.state-evolved {
