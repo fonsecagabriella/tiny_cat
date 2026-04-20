@@ -634,6 +634,14 @@ body::after {
 .overlay-btns { display: flex; gap: 10px; justify-content: center; }
 .overlay-btns .btn { flex: 1; }
 
+/* Evolution time string */
+#evolved-time {
+  margin-top: 20px;
+  font-size: 7px;
+  color: var(--accent-cyan);
+  letter-spacing: 1px;
+}
+
 /* Evolution overlay — magenta border variant */
 #evolution-overlay .overlay-content {
   border-color: var(--accent-yellow);
