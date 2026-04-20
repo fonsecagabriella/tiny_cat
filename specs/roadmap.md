@@ -21,7 +21,7 @@ Deliverables:
 - Play disabled at Energy ≤ 10; Feed disabled at poo count = 5
 - Minimal HTML output (text only) proving all logic works
 
-Definition of done: All state transitions and stat effects manually verified via browser console. Automated unit tests in `tests/game.test.js` pass.
+Definition of done: All state transitions and stat effects manually verified via browser console. Automated unit tests in `tests/game.test.js` (57 tests) and `tests/cat.test.js` (24 tests) pass. GitHub Actions CI runs green on push.
 
 ---
 
