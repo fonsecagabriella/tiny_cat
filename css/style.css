@@ -398,7 +398,7 @@ body::after {
 
 .stat-row {
   display: grid;
-  grid-template-columns: 32px 1fr 24px;
+  grid-template-columns: auto 1fr 28px;
   align-items: center;
   gap: 10px;
 }
@@ -676,4 +676,5 @@ body::after {
   .cat-svg { height: 150px; }
   .actions { gap: 6px; }
   .btn { padding: 10px 6px; font-size: 7px; }
+  .stat-row label { font-size: 6px; }
 }
