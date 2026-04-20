@@ -21,7 +21,157 @@ function getCatSVG(state, colour) {
     extras: ''
   };
 
-  var faces = { fine: face_fine };
+  // ── Hungry expression ─────────────────────────────────────────────────────
+  var face_hungry = {
+    eyes: [
+      // Left eye
+      '<rect x="58" y="80" width="14" height="14" fill="#2a2a2a"/>',
+      '<rect x="62" y="82" width="5"  height="5"  fill="white"/>',
+      // Left brow (angled down toward centre: high on left, low on right)
+      '<rect x="54" y="68" width="8"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="62" y="72" width="8"  height="4"  fill="#2a2a2a"/>',
+      // Right eye
+      '<rect x="128" y="80" width="14" height="14" fill="#2a2a2a"/>',
+      '<rect x="132" y="82" width="5"  height="5"  fill="white"/>',
+      // Right brow (angled down toward centre: low on left, high on right)
+      '<rect x="130" y="72" width="8"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="138" y="68" width="8"  height="4"  fill="#2a2a2a"/>'
+    ].join(''),
+    mouth: [
+      // Downturned mouth: corners down, centre up
+      '<rect x="84"  y="122" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="108" y="122" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="92"  y="118" width="16" height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    extras: ''
+  };
+
+  // ── Bored expression ──────────────────────────────────────────────────────
+  var face_bored = {
+    eyes: [
+      // Left eye: half-height (drooping lid) — top half dark, shorter
+      '<rect x="58" y="80" width="14" height="7"  fill="#2a2a2a"/>',
+      '<rect x="62" y="82" width="5"  height="4"  fill="white"/>',
+      // Right eye
+      '<rect x="128" y="80" width="14" height="7"  fill="#2a2a2a"/>',
+      '<rect x="132" y="82" width="5"  height="4"  fill="white"/>'
+    ].join(''),
+    mouth: [
+      // Flat horizontal line
+      '<rect x="84" y="118" width="32" height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    extras: ''
+  };
+
+  // ── Happy expression ──────────────────────────────────────────────────────
+  var face_happy = {
+    eyes: [
+      // Left eye: closed upward arc built from step-rects (∩ shape)
+      '<rect x="58"  y="88" width="4"  height="8"  fill="#2a2a2a"/>',
+      '<rect x="62"  y="84" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="66"  y="82" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="70"  y="84" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="68"  y="88" width="4"  height="4"  fill="#2a2a2a"/>',
+      // Right eye
+      '<rect x="128" y="88" width="4"  height="8"  fill="#2a2a2a"/>',
+      '<rect x="132" y="84" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="136" y="82" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="140" y="84" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="138" y="88" width="4"  height="4"  fill="#2a2a2a"/>'
+    ].join(''),
+    mouth: [
+      // Wide smile: corners up, centre down
+      '<rect x="80"  y="118" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="112" y="118" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="88"  y="122" width="24" height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    extras: [
+      // Blush marks: small pink rects below each eye
+      '<rect x="54"  y="100" width="12" height="6" fill="#ff8888" opacity="0.55"/>',
+      '<rect x="134" y="100" width="12" height="6" fill="#ff8888" opacity="0.55"/>'
+    ].join('')
+  };
+
+  // ── Sick expression ───────────────────────────────────────────────────────
+  var face_sick = {
+    eyes: [
+      // Left eye: X shape — pixel staircase, no rotation
+      // diagonal top-left → bottom-right
+      '<rect x="57" y="79" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="61" y="83" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="65" y="87" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="69" y="91" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="73" y="95" width="4" height="4" fill="#2a2a2a"/>',
+      // diagonal top-right → bottom-left
+      '<rect x="73" y="79" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="69" y="83" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="61" y="91" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="57" y="95" width="4" height="4" fill="#2a2a2a"/>',
+      // Right eye: X shape — pixel staircase
+      '<rect x="123" y="79" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="127" y="83" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="131" y="87" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="135" y="91" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="139" y="95" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="139" y="79" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="135" y="83" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="127" y="91" width="4" height="4" fill="#2a2a2a"/>',
+      '<rect x="123" y="95" width="4" height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    mouth: [
+      // Uneven/jagged mouth
+      '<rect x="84"  y="116" width="6"  height="4" fill="#2a2a2a"/>',
+      '<rect x="90"  y="120" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="98"  y="116" width="6"  height="4" fill="#2a2a2a"/>',
+      '<rect x="104" y="120" width="8"  height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    extras: [
+      // Sweat drop indicator mark (top-right of head)
+      '<rect x="154" y="52" width="6"  height="10" fill="#88ccff"/>',
+      '<rect x="152" y="60" width="10" height="4"  fill="#88ccff"/>'
+    ].join('')
+  };
+
+  // ── Evolved expression ────────────────────────────────────────────────────
+  var face_evolved = {
+    eyes: [
+      // Left eye: pixel diamond shape
+      '<rect x="65"  y="78" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="61"  y="82" width="12" height="4"  fill="#2a2a2a"/>',
+      '<rect x="57"  y="86" width="16" height="4"  fill="#2a2a2a"/>',
+      '<rect x="61"  y="90" width="12" height="4"  fill="#2a2a2a"/>',
+      '<rect x="65"  y="94" width="4"  height="4"  fill="#2a2a2a"/>',
+      // Right eye: pixel diamond shape
+      '<rect x="131" y="78" width="4"  height="4"  fill="#2a2a2a"/>',
+      '<rect x="127" y="82" width="12" height="4"  fill="#2a2a2a"/>',
+      '<rect x="123" y="86" width="16" height="4"  fill="#2a2a2a"/>',
+      '<rect x="127" y="90" width="12" height="4"  fill="#2a2a2a"/>',
+      '<rect x="131" y="94" width="4"  height="4"  fill="#2a2a2a"/>'
+    ].join(''),
+    mouth: [
+      // Wide smile
+      '<rect x="78"  y="118" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="114" y="118" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="86"  y="122" width="28" height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    extras: [
+      // Sparkle marks near head: + shape, left side
+      '<rect x="14"  y="28" width="4"  height="16" fill="#ffff00"/>',
+      '<rect x="8"   y="34" width="16" height="4"  fill="#ffff00"/>',
+      // Sparkle marks near head: + shape, right side
+      '<rect x="178" y="28" width="4"  height="16" fill="#ffff00"/>',
+      '<rect x="172" y="34" width="16" height="4"  fill="#ffff00"/>'
+    ].join('')
+  };
+
+  var faces = {
+    fine:    face_fine,
+    hungry:  face_hungry,
+    bored:   face_bored,
+    happy:   face_happy,
+    sick:    face_sick,
+    evolved: face_evolved
+  };
   var f = faces[state] || face_fine;
 
   // ── Belly state: cat on its back ───────────────────────────────────────────
