@@ -37,8 +37,8 @@ function clamp(val, min, max) {
 
 function applyDecay(cat) {
   const d = cat.evolved
-    ? { hunger: 2.5, happiness: 1.5, energy: 3 }
-    : { hunger: 5,   happiness: 3,   energy: 6 };
+    ? { hunger: 1.5, happiness: 1, energy: 2 }
+    : { hunger: 3,   happiness: 2, energy: 4 };
   cat.hunger    = clamp(cat.hunger    - d.hunger,    0, 100);
   cat.happiness = clamp(cat.happiness - d.happiness, 0, 100);
   cat.energy    = clamp(cat.energy    - d.energy,    0, 100);
@@ -97,12 +97,13 @@ function applyRest(cat) {
 }
 
 function evaluateState(cat) {
-  if (cat.sick)             return 'sick';
-  if (cat.evolved)          return 'evolved';
-  if (cat.happiness > 50)   return 'happy';
-  if (cat.hunger < 30)      return 'hungry';
-  if (cat.happiness < 15)   return 'bored';
-  return 'normal';
+  if (cat.sick)        return 'sick';
+  if (cat.evolved)     return 'evolved';
+  if (cat.bellyActive) return 'belly';
+  if (cat.hunger >= 75 && cat.happiness >= 75 && cat.energy >= 75 && cat.poos <= 1) return 'happy';
+  if (cat.hunger < 30) return 'hungry';
+  if (cat.happiness < 50) return 'bored';
+  return 'fine';
 }
 
 function updateCounters(cat) {
@@ -119,7 +120,7 @@ function updateCounters(cat) {
 }
 
 function triggerNaturalPoo(cat) {
-  if (cat.fullHungerTicks >= 10 && cat.poos < 5) {
+  if (cat.fullHungerTicks >= 5 && cat.poos < 5) {
     cat.poos++;
     cat.happiness     = clamp(cat.happiness - 5, 0, 100);
     cat.fullHungerTicks = 0;
@@ -130,7 +131,7 @@ function triggerNaturalPoo(cat) {
 
 function triggerSick(cat) {
   if (cat.sick || cat.evolved) return false;
-  if (cat.hungryTicks >= 5 || cat.pooSickTicks > 10) {
+  if (cat.hungryTicks >= 2 || cat.pooSickTicks >= 1) {
     cat.happiness = Math.floor(cat.happiness / 2);
     cat.sick      = true;
     return true;
@@ -151,7 +152,7 @@ function checkSickRecovery(cat) {
 
 function triggerEvolution(cat) {
   if (cat.evolved || cat.sick) return false;
-  if (cat.evolvedTicks >= 5) {
+  if (cat.evolvedTicks >= 2) {
     cat.evolved = true;
     return true;
   }
@@ -159,7 +160,7 @@ function triggerEvolution(cat) {
 }
 
 function checkBellyEvent(cat) {
-  if (cat.bellyTicks >= 5 && !cat.bellyActive && !cat.sick) {
+  if (cat.bellyTicks >= 2 && !cat.bellyActive && !cat.sick) {
     cat.bellyActive = true;
     return true;
   }

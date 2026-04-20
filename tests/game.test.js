@@ -44,35 +44,35 @@ function log(type, msg) {
 
 // ─── Stat Decay ──────────────────────────────────────────────────────────────
 
-test('Normal decay: hunger −5', function () {
+test('Normal decay: hunger −3', function () {
   var cat = createCat({ hunger: 50, happiness: 50, energy: 50 });
   applyDecay(cat);
-  assertEqual(cat.hunger, 45, 'hunger');
+  assertEqual(cat.hunger, 47, 'hunger');
 });
-test('Normal decay: happiness −3', function () {
+test('Normal decay: happiness −2', function () {
   var cat = createCat({ hunger: 50, happiness: 50, energy: 50 });
   applyDecay(cat);
-  assertEqual(cat.happiness, 47, 'happiness');
+  assertEqual(cat.happiness, 48, 'happiness');
 });
-test('Normal decay: energy −6', function () {
+test('Normal decay: energy −4', function () {
   var cat = createCat({ hunger: 50, happiness: 50, energy: 50 });
   applyDecay(cat);
-  assertEqual(cat.energy, 44, 'energy');
+  assertEqual(cat.energy, 46, 'energy');
 });
-test('Evolved decay: hunger −2.5', function () {
+test('Evolved decay: hunger −1.5', function () {
   var cat = createCat({ hunger: 50, happiness: 50, energy: 50, evolved: true });
   applyDecay(cat);
-  assertEqual(cat.hunger, 47.5, 'hunger evolved');
+  assertEqual(cat.hunger, 48.5, 'hunger evolved');
 });
-test('Evolved decay: happiness −1.5', function () {
+test('Evolved decay: happiness −1', function () {
   var cat = createCat({ hunger: 50, happiness: 50, energy: 50, evolved: true });
   applyDecay(cat);
-  assertEqual(cat.happiness, 48.5, 'happiness evolved');
+  assertEqual(cat.happiness, 49, 'happiness evolved');
 });
-test('Evolved decay: energy −3', function () {
+test('Evolved decay: energy −2', function () {
   var cat = createCat({ hunger: 50, happiness: 50, energy: 50, evolved: true });
   applyDecay(cat);
-  assertEqual(cat.energy, 47, 'energy evolved');
+  assertEqual(cat.energy, 48, 'energy evolved');
 });
 test('Stats floor at 0', function () {
   var cat = createCat({ hunger: 1, happiness: 1, energy: 1 });
@@ -216,17 +216,25 @@ test('State: hungry when hunger < 30', function () {
   var cat = createCat({ hunger: 29, happiness: 60, energy: 60 });
   assertEqual(evaluateState(cat), 'hungry');
 });
-test('State: bored when happiness < 15', function () {
+test('State: bored when happiness < 50', function () {
   var cat = createCat({ hunger: 50, happiness: 14, energy: 50 });
   assertEqual(evaluateState(cat), 'bored');
 });
-test('State: happy when happiness > 50', function () {
-  var cat = createCat({ hunger: 50, happiness: 51, energy: 50 });
+test('State: happy when all stats ≥ 75', function () {
+  var cat = createCat({ hunger: 80, happiness: 80, energy: 80 });
   assertEqual(evaluateState(cat), 'happy');
 });
-test('State: normal when no threshold crossed', function () {
+test('State: fine when all stats ≥ 50 (default)', function () {
+  var cat = createCat({ hunger: 60, happiness: 60, energy: 60 });
+  assertEqual(evaluateState(cat), 'fine');
+});
+test('State: bored when happiness < 50', function () {
   var cat = createCat({ hunger: 50, happiness: 35, energy: 50 });
-  assertEqual(evaluateState(cat), 'normal');
+  assertEqual(evaluateState(cat), 'bored');
+});
+test('State: belly when bellyActive', function () {
+  var cat = createCat({ hunger: 80, happiness: 80, energy: 80, bellyActive: true });
+  assertEqual(evaluateState(cat), 'belly');
 });
 test('Sick > Bored priority', function () {
   var cat = createCat({ hunger: 5, happiness: 5, energy: 5, sick: true });
@@ -240,20 +248,20 @@ test('Evolved > Happy priority', function () {
   var cat = createCat({ hunger: 95, happiness: 95, energy: 95, evolved: true });
   assertEqual(evaluateState(cat), 'evolved');
 });
-test('Sick triggers after 5 ticks with hunger < 10', function () {
-  var cat = createCat({ hunger: 5, happiness: 60, energy: 60, hungryTicks: 4 });
+test('Sick triggers after 2 ticks with hunger < 10', function () {
+  var cat = createCat({ hunger: 5, happiness: 60, energy: 60, hungryTicks: 1 });
   runTick(cat);
   assert(cat.sick, 'sick=true');
 });
 test('Sick halves happiness on entry (hunger path)', function () {
-  // updateCounters: hungryTicks→5; decay: happiness 60−3=57, energy 60−6=54;
-  // energy 54 >= 50 → no energy penalty; triggerSick: floor(57/2)=28
+  // updateCounters: hungryTicks→5 (≥2 → sick path eligible); decay: happiness 60−2=58, energy 60−4=56;
+  // energy 56 >= 50 → no energy penalty; triggerSick: floor(58/2)=29
   var cat = createCat({ hunger: 5, happiness: 60, energy: 60, hungryTicks: 4 });
   runTick(cat);
-  assertEqual(cat.happiness, 28);
+  assertEqual(cat.happiness, 29);
 });
-test('Sick triggers via poo path (>1 poo for >10 ticks)', function () {
-  var cat = createCat({ hunger: 50, happiness: 60, energy: 60, poos: 2, pooSickTicks: 10 });
+test('Sick triggers via poo path (>1 poo for 1 full tick)', function () {
+  var cat = createCat({ hunger: 50, happiness: 60, energy: 60, poos: 2, pooSickTicks: 0 });
   runTick(cat);
   assert(cat.sick, 'sick via poo path');
 });
@@ -277,13 +285,13 @@ test('Sick not cleared if happiness ≤ 50', function () {
   checkSickRecovery(cat);
   assert(cat.sick, 'still sick (happiness must be > 50)');
 });
-test('Evolved triggers after 5 ticks with all stats ≥ 90', function () {
-  var cat = createCat({ hunger: 92, happiness: 92, energy: 92, evolvedTicks: 4 });
+test('Evolved triggers after 2 ticks with all stats ≥ 90', function () {
+  var cat = createCat({ hunger: 92, happiness: 92, energy: 92, evolvedTicks: 1 });
   runTick(cat);
   assert(cat.evolved, 'evolved=true');
 });
 test('Evolved blocked while sick', function () {
-  var cat = createCat({ hunger: 92, happiness: 92, energy: 92, evolvedTicks: 4, sick: true });
+  var cat = createCat({ hunger: 92, happiness: 92, energy: 92, evolvedTicks: 1, sick: true });
   runTick(cat);
   assert(!cat.evolved, 'evolved blocked by sick');
 });
@@ -295,21 +303,21 @@ test('Evolved cat cannot become sick', function () {
 
 // ─── Poo Mechanic ────────────────────────────────────────────────────────────
 
-test('Natural poo created after 10 full-hunger ticks', function () {
-  var cat = createCat({ hunger: 100, happiness: 60, poos: 0, fullHungerTicks: 9 });
+test('Natural poo created after 5 full-hunger ticks', function () {
+  var cat = createCat({ hunger: 100, happiness: 60, poos: 0, fullHungerTicks: 4 });
   runTick(cat);
   assertEqual(cat.poos, 1);
   assertEqual(cat.fullHungerTicks, 0);
 });
 test('Natural poo reduces happiness by 5', function () {
-  // updateCounters: fullHungerTicks→10; decay: happiness 60−3=57, energy 80−6=74;
-  // energy 74 >= 50 → no penalty; triggerNaturalPoo: happiness 57−5=52
+  // updateCounters: fullHungerTicks→10 (≥5 → triggers); decay: happiness 60−2=58, energy 80−4=76;
+  // energy 76 >= 50 → no penalty; triggerNaturalPoo: happiness 58−5=53
   var cat = createCat({ hunger: 100, happiness: 60, poos: 0, fullHungerTicks: 9 });
   runTick(cat);
-  assertEqual(cat.happiness, 52);
+  assertEqual(cat.happiness, 53);
 });
 test('Poo count capped at 5', function () {
-  var cat = createCat({ hunger: 100, happiness: 60, poos: 5, fullHungerTicks: 9 });
+  var cat = createCat({ hunger: 100, happiness: 60, poos: 5, fullHungerTicks: 4 });
   runTick(cat);
   assertEqual(cat.poos, 5);
 });
@@ -321,9 +329,9 @@ test('cleanPoo reduces poo count by 1', function () {
 
 // ─── Belly Event ─────────────────────────────────────────────────────────────
 
-test('Belly event triggers after 5 ticks at happiness 100', function () {
-  var cat = createCat({ hunger: 50, happiness: 100, energy: 50, bellyTicks: 4, sick: false, bellyActive: false });
-  updateCounters(cat); // happiness=100, not sick → bellyTicks++ = 5
+test('Belly event triggers after 2 ticks at happiness 100', function () {
+  var cat = createCat({ hunger: 50, happiness: 100, energy: 50, bellyTicks: 1, sick: false, bellyActive: false });
+  updateCounters(cat); // happiness=100, not sick → bellyTicks++ = 2
   checkBellyEvent(cat);
   assert(cat.bellyActive, 'bellyActive=true');
 });

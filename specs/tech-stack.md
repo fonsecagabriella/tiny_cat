@@ -45,16 +45,16 @@ The app has two screens managed in the same HTML file, toggled by CSS visibility
 ## Key Technical Decisions
 
 ### Game loop
-A `setInterval` running every 60 seconds drives stat decay. On each tick:
+A `setInterval` running every 30 seconds drives stat decay. On each tick:
 1. Apply decay to all stats (floored at 0).
-2. Apply poo happiness drain (−1 per poo present).
+2. Apply poo happiness drain (−10 per poo present).
 3. Update internal counters (hungry ticks, poo-sick ticks, evolved ticks, belly ticks, full-hunger ticks).
 4. Evaluate triggered events (natural poo, Sick, belly-showing, Evolved).
 5. Evaluate display state.
 6. Re-render UI.
 
 ### State machine
-The state is a derived value computed on every tick and after every user action, not stored independently. Priority evaluation order: Sick > Evolved > Happy > Hungry > Bored > Normal.
+The state is a derived value computed on every tick and after every user action, not stored independently. Priority evaluation order: Sick > Evolved > Showing Belly > Happy > Hungry > Bored > Fine.
 
 ### Page Visibility
 The app listens to `document.addEventListener('visibilitychange')`. When the tab returns to focus, elapsed ticks since hide are calculated and applied in bulk.

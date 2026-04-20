@@ -33,11 +33,11 @@ Demonstrate a complete, polished, interactive front-end application: real-time s
 
 | Stat | Range | Normal decay | Evolved decay | Notes |
 |---|---|---|---|---|
-| Hunger | 0–100 | −5 per tick | −2.5 per tick | 100 = full; triggers poo on overflow |
-| Happiness | 0–100 | −3 per tick | −1.5 per tick | 100 = very happy; triggers belly event on overflow |
-| Energy | 0–100 | −6 per tick | −3 per tick | 100 = fully rested |
+| Hunger | 0–100 | −3 per tick | −1.5 per tick | 100 = full; triggers poo on overflow |
+| Happiness | 0–100 | −2 per tick | −1 per tick | 100 = very happy; triggers belly event on overflow |
+| Energy | 0–100 | −4 per tick | −2 per tick | 100 = fully rested |
 
-**Tick interval:** 60 seconds (real time).
+**Tick interval:** 30 seconds (real time).
 Stats floor at 0 and cap at 100. Feeding when Hunger = 100, or playing when Energy ≤ 10, triggers overflow behaviour rather than exceeding the cap.
 
 ### Energy → Happiness penalty (applied each tick after decay)
@@ -80,7 +80,7 @@ If the selected food would push Hunger past 100, Hunger is set to 100 and a poo 
 | Trigger | Condition |
 |---|---|
 | Feed overflow | Feeding when Hunger = 100, or when food gain would exceed 100 |
-| Natural overflow | Hunger has been at 100 for 10 consecutive ticks |
+| Natural overflow | Hunger has been at 100 for 5 consecutive ticks |
 
 - Each poo that appears reduces Happiness by 5 immediately.
 - Each poo present drains an additional **10 Happiness per tick**.
@@ -92,7 +92,7 @@ If the selected food would push Hunger past 100, Hunger is set to 100 and a poo 
 
 ## Belly-Showing Event
 
-- Fires when Happiness = 100 for 5 consecutive ticks.
+- Fires when Happiness = 100 for 2 consecutive ticks.
 - Blocked if the cat is currently Sick.
 - A prompt appears: "Your cat wants to show you its belly. Pet it?"
 - **Yes** → 50 % chance of Purr (Happiness +15) or Attack (Happiness −20).
@@ -105,14 +105,15 @@ If the selected food would push Hunger past 100, Hunger is set to 100 and a poo 
 
 | State | Trigger condition | Exit condition |
 |---|---|---|
-| Normal | Default | A threshold is crossed |
+| Fine | All stats ≥ 50 | Any stat drops below 50 |
 | Hungry | Hunger < 30 | Hunger ≥ 30 |
-| Bored | Happiness < 15 | Happiness ≥ 15 |
-| Happy | Happiness > 50 | Happiness ≤ 50 |
-| Sick | Hunger < 10 for 5 consecutive ticks, OR more than 1 poo present for > 10 consecutive ticks | All poos cleaned AND Hunger ≥ 50 AND Happiness > 50 |
-| Evolved | All stats ≥ 90 for 5 consecutive ticks AND not Sick | Permanent — no reversion |
+| Bored | Happiness < 50 | Happiness ≥ 50 |
+| Happy | All stats ≥ 75 AND poo count ≤ 1 | Any stat drops below 75 OR poo count > 1 |
+| Showing Belly | Belly event fires | User responds Yes or No |
+| Sick | Hunger < 10 for 2 consecutive ticks OR > 1 poo present for 1 full tick | All poos cleaned AND Hunger ≥ 50 AND Happiness > 50 |
+| Evolved | All stats ≥ 90 for 2 consecutive ticks AND not Sick | Permanent — no reversion |
 
-**State priority (highest → lowest):** Sick > Evolved > Happy > Hungry > Bored > Normal.
+State priority (highest → lowest): Sick > Evolved > Showing Belly > Happy > Hungry > Bored > Fine.
 Only one state is displayed at a time.
 
 **On entering Sick:** Happiness is immediately set to `floor(current Happiness / 2)`.
@@ -127,7 +128,7 @@ Only one state is displayed at a time.
 2. User enters a name for the cat (required, max 20 characters) and picks a colour.
 3. User clicks "Start" → cat is created in Normal state with Hunger 80, Happiness 80, Energy 80.
 4. A preferred food is randomly assigned (not revealed to the user).
-5. Stats begin ticking down on a 60-second interval.
+5. Stats begin ticking down on a 30-second interval.
 
 ### Flow 2 — Normal play loop
 1. User observes stat bars and cat expression.
@@ -137,7 +138,7 @@ Only one state is displayed at a time.
 ### Flow 3 — Poo and cleaning
 1. User overfeeds or cat reaches natural poo trigger → poo appears, Happiness −5.
 2. User clicks on poo → confirmation prompt → poo is removed.
-3. If > 1 poo remains uncleaned for > 10 ticks → cat becomes Sick.
+3. If > 1 poo remains uncleaned for 1 full tick → cat becomes Sick.
 
 ### Flow 4 — Recovery from Sick
 1. Sick is triggered (hunger path or poo path).
@@ -146,12 +147,12 @@ Only one state is displayed at a time.
 4. All three conditions met simultaneously → state returns to Normal.
 
 ### Flow 5 — Belly showing
-1. Happiness = 100 for 5 consecutive ticks → belly-showing prompt appears.
+1. Happiness = 100 for 2 consecutive ticks → belly-showing prompt appears.
 2. User selects Yes → random Purr or Attack outcome.
 3. Happiness is adjusted; belly counter resets.
 
 ### Flow 6 — Evolution
-1. All three stats remain ≥ 90 for 5 consecutive ticks while not Sick.
+1. All three stats remain ≥ 90 for 2 consecutive ticks while not Sick.
 2. State transitions to Evolved → sprite grows larger, decay rates halved, congratulations message shown.
 
 ### Flow 7 — Restart
@@ -172,7 +173,8 @@ Only one state is displayed at a time.
 | Sick cat reaches all stats ≥ 90 | Cannot evolve; Sick must be cured first |
 | Belly event fires while Sick | Event is suppressed; belly counter resets |
 | Pet action when no belly event | Pet button not visible |
-| Poo count > 1 for > 10 ticks | Cat becomes Sick (poo path) |
+| Poo count > 1 for 1 full tick | Cat becomes Sick (poo path) |
+| All stats ≥ 75 but poo count > 1 | Cat is not Happy; falls to next applicable state |
 | Restart after evolution | Evolution is not preserved; session resets fully |
 | Empty name on Welcome screen | Start button disabled until ≥ 1 non-whitespace character |
 | Name longer than 20 characters | Input capped at 20 characters |
@@ -186,7 +188,7 @@ Only one state is displayed at a time.
 
 1. A visitor can open the app and understand what to do within 10 seconds, without reading instructions.
 2. All three stat bars visibly decay in real time.
-3. All six states (Normal, Hungry, Bored, Happy, Sick, Evolved) are reachable through normal play.
+3. All seven states (Fine, Hungry, Bored, Happy, Showing Belly, Sick, Evolved) are reachable through normal play.
 4. The poo mechanic works: poos appear, reduce happiness, and can be cleaned.
 5. The cat can recover from Sick to Normal via the three-part recovery path.
 6. The belly-showing event fires and produces a random outcome.

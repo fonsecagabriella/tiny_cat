@@ -10,14 +10,14 @@ Each phase is a discrete, shippable increment. Phases build on each other; later
 
 Deliverables:
 - `cat.js`: Cat entity with name, colour, food preference, stats (Hunger 80, Happiness 80, Energy 80), poo count, and all internal tick counters
-- `game.js`: 60-second tick loop with stat decay (Normal: −3/−2/−4; Evolved: −1.5/−1/−2)
+- `game.js`: 30-second tick loop with stat decay (Normal: −3/−2/−4; Evolved: −1.5/−1/−2)
 - Action handlers: Feed (3 food options, preference logic, overflow → poo), Play (+20 Happiness, −10 Energy), Rest (+30 Energy, −5 Happiness)
-- Poo mechanic: feed-overflow poo, natural-poo counter (10 ticks at Hunger 100), poo happiness drain (−1/tick/poo), max 5 poos
-- State machine: Normal, Hungry, Bored, Happy, Sick, Evolved evaluated on every tick with correct priority
-- Sick counters: hunger path (5 ticks < 10) and poo path (> 1 poo for > 10 ticks); Happiness halved on Sick entry
+- Poo mechanic: feed-overflow poo, natural-poo counter (5 ticks at Hunger 100), poo happiness drain (−10/tick/poo), max 5 poos
+- State machine: Fine, Hungry, Bored, Happy, Showing Belly, Sick, Evolved evaluated on every tick with correct priority
+- Sick counters: hunger path (2 ticks < 10) and poo path (> 1 poo for 1 full tick); Happiness halved on Sick entry
 - Sick recovery: poos = 0 AND Hunger ≥ 50 AND Happiness > 50
-- Evolved: 5 ticks with all stats ≥ 90 AND not Sick; permanent flag; decay rates halved
-- Belly-showing event: 5 ticks at Happiness = 100 AND not Sick; random Purr/Attack outcome
+- Evolved: 2 ticks with all stats ≥ 90 AND not Sick; permanent flag; decay rates halved
+- Belly-showing event: 2 ticks at Happiness = 100 AND not Sick; random Purr/Attack outcome
 - Play disabled at Energy ≤ 10; Feed disabled at poo count = 5
 - Minimal HTML output (text only) proving all logic works
 
@@ -101,3 +101,21 @@ Deliverables:
 - Manual cross-browser check: Chrome, Firefox, Safari
 
 Definition of done: App is live at the GitHub Pages URL and passes all success criteria in `mission.md` and all smoke tests in `validation.md`.
+
+---
+
+## Phase 7 — Testing & CI
+
+**Goal:** Game logic is covered by automated unit tests. Tests run automatically on every push via GitHub Actions.
+
+Deliverables:
+- `package.json` with Jest configured as test runner
+- `tests/game.test.js` covering state machine, decay rates, and tick counters
+- `tests/cat.test.js` covering stat boundaries, poo mechanic, and action effects
+- `.github/workflows/test.yml` running on every push to main and every pull request:
+  1. Install Node.js LTS
+  2. Run `npm install`
+  3. Run `npm test` — must pass before merge
+- Game logic files (`js/game.js`, `js/cat.js`) refactored to export functions for Jest if not already done
+
+Definition of done: `npm test` passes locally and GitHub Actions shows green on the repository.

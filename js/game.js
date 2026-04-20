@@ -7,7 +7,7 @@ var hiddenAt    = null;
 function startGame(newCat) {
   cat = newCat;
   stopGame();
-  tickInterval = setInterval(onTick, 60000);
+  tickInterval = setInterval(onTick, 30000);
   document.addEventListener('visibilitychange', onVisibilityChange);
 }
 
@@ -31,7 +31,7 @@ function onVisibilityChange() {
   } else {
     if (hiddenAt && cat) {
       var elapsed      = Date.now() - hiddenAt;
-      var missedTicks  = Math.floor(elapsed / 60000);
+      var missedTicks  = Math.floor(elapsed / 30000);
       for (var i = 0; i < missedTicks; i++) runTick(cat);
       if (missedTicks > 0 && typeof renderGame === 'function') renderGame({});
     }
