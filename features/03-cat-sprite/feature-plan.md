@@ -2,7 +2,7 @@
 
 ## Overview
 
-Replace the existing smooth SVG cat with a true pixel-art sprite. Add distinct visual expressions for all seven states, evolve size scaling, belly overlay tint, and polish all visual feedback elements (stat bars, poo area, button animations, evolution message).
+Replace the existing smooth SVG cat with a true pixel-art sprite. Add distinct visual expressions for all eight states, evolve size scaling, belly overlay tint, and polish all visual feedback elements (stat bars, poo area, button animations, evolution message).
 
 No game logic changes — this phase is purely visual. `js/game.js` and `js/cat.js` must not be modified.
 
@@ -30,9 +30,9 @@ Verify: Open game screen. Sprite is visible. Zoom in — edges are hard and bloc
 
 ---
 
-### Group 2 — Seven State Expressions
+### Group 2 — Eight State Expressions
 
-**Goal:** Each of the seven states produces a visually distinct face. Expressions are composed entirely of pixel-grid elements (rects, polygons — no curves).
+**Goal:** Each of the eight states produces a visually distinct face. Expressions are composed entirely of pixel-grid elements (rects, polygons — no curves).
 
 States and required expressions:
 
@@ -40,6 +40,7 @@ States and required expressions:
 |---|---|
 | Fine | Neutral: open dot eyes, small straight mouth |
 | Hungry | Angled-down inner brows, downturned mouth |
+| Tired | Half-closed eyes (thinner rectangles than Bored), small open yawn mouth built from rects, small ZZZ pixel mark near head |
 | Bored | Half-height rectangle eyes (drooping lids), flat line mouth |
 | Happy | Closed arc eyes (upward curve built from step-rects), wide smile, blush marks |
 | Showing Belly | Cat flipped on its back — body oriented upward, lighter belly area visible |
@@ -51,7 +52,8 @@ Tasks:
 2. For `belly` state: restructure the body layout — rotate or recompose the sprite to show the cat on its back; add a lighter-coloured belly rectangle
 3. For `happy` state: add blush marks as small pixel rectangles below the eyes
 4. For `evolved` state: add two small pixel sparkle marks near the head
-5. Fall back to `fine` expression if an unknown state is passed
+5. For `tired` state: add ZZZ pixel mark (three stacked rects, decreasing width) near top of head
+6. Fall back to `fine` expression if an unknown state is passed
 
 Verify: Without reloading, trigger each state via console (see `validation.md` Level 2). Each state shows a visually distinct face. Belly state shows the cat on its back.
 

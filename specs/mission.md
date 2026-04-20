@@ -121,13 +121,14 @@ If the selected food would push Hunger past 100, Hunger is set to 100 and a poo 
 |---|---|---|
 | Fine | All stats ≥ 50 | Any stat drops below 50 |
 | Hungry | Hunger < 30 | Hunger ≥ 30 |
+| Tired | Energy < 30 | Energy ≥ 30 |
 | Bored | Happiness < 50 | Happiness ≥ 50 |
 | Happy | All stats ≥ 75 AND poo count ≤ 1 | Any stat drops below 75 OR poo count > 1 |
 | Showing Belly | Belly event fires | User responds Yes or No |
 | Sick | Hunger < 10 for 2 consecutive ticks OR > 1 poo present for 1 full tick | All poos cleaned AND Hunger ≥ 50 AND Happiness > 50 |
 | Evolved | All stats ≥ 90 for 2 consecutive ticks AND not Sick | Permanent — no reversion |
 
-State priority (highest → lowest): Sick > Evolved > Showing Belly > Happy > Hungry > Bored > Fine.
+State priority (highest → lowest): Sick > Evolved > Showing Belly > Happy > Hungry > Tired > Bored > Fine.
 Only one state is displayed at a time.
 
 **On entering Sick:** Happiness is immediately set to `floor(current Happiness / 2)`.
@@ -184,6 +185,8 @@ Only one state is displayed at a time.
 | Feed when poo count = 5 | Feed button disabled |
 | Play when Energy ≤ 10 | Play button disabled; tooltip explains why |
 | Sick and Bored simultaneously | Sick takes visual priority |
+| Tired and Bored simultaneously | Tired takes visual priority; Bored is suppressed |
+| Tired and Hungry simultaneously | Hungry takes visual priority; Tired is suppressed |
 | Sick cat reaches all stats ≥ 90 | Cannot evolve; Sick must be cured first |
 | Belly event fires while Sick | Event is suppressed; belly counter resets |
 | Pet action when no belly event | Pet button not visible |
@@ -202,7 +205,7 @@ Only one state is displayed at a time.
 
 1. A visitor can open the app and understand what to do within 10 seconds, without reading instructions.
 2. All three stat bars visibly decay in real time.
-3. All seven states (Fine, Hungry, Bored, Happy, Showing Belly, Sick, Evolved) are reachable through normal play.
+3. All eight states (Fine, Hungry, Tired, Bored, Happy, Showing Belly, Sick, Evolved) are reachable through normal play.
 4. The poo mechanic works: poos appear, reduce happiness, and can be cleaned.
 5. The cat can recover from Sick to Normal via the three-part recovery path.
 6. The belly-showing event fires and produces a random outcome.

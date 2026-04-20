@@ -102,6 +102,7 @@ function evaluateState(cat) {
   if (cat.bellyActive) return 'belly';
   if (cat.hunger >= 75 && cat.happiness >= 75 && cat.energy >= 75 && cat.poos <= 1) return 'happy';
   if (cat.hunger < 30) return 'hungry';
+  if (cat.energy < 30)  return 'tired';
   if (cat.happiness < 50) return 'bored';
   return 'fine';
 }

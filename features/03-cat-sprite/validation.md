@@ -34,7 +34,7 @@ Run these first. All must pass before proceeding to state tests.
 
 Trigger each state using the console commands below. After each, verify the sprite expression is visually distinct from all others. The game screen must be active (game started) for `renderGame({})` to work.
 
-**Note:** Because state is derived (not stored), higher-priority states block lower ones. Clear conflicting flags before testing a state. Priority order: Sick > Evolved > Showing Belly > Happy > Hungry > Bored > Fine.
+**Note:** Because state is derived (not stored), higher-priority states block lower ones. Clear conflicting flags before testing a state. Priority order: Sick > Evolved > Showing Belly > Happy > Hungry > Tired > Bored > Fine.
 
 ---
 
@@ -63,6 +63,20 @@ renderGame({});
 ```
 
 Expected: Brows angled downward toward centre; mouth curves down. State label reads "Hungry".
+
+---
+
+### Tired
+
+```js
+cat.sick = false; cat.evolved = false; cat.bellyActive = false;
+cat.hunger = 80; cat.happiness = 80; cat.energy = 25; cat.poos = 0;
+renderGame({});
+```
+
+Expected: Half-closed eyes (thinner than Bored); small open square yawn mouth; ZZZ pixel mark near head. State label reads "Tired".
+
+Note: Energy at 25 — below Tired threshold (< 30). Hungry threshold not met (Hunger still 80).
 
 ---
 

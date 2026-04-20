@@ -29,7 +29,7 @@ All requirements are traceable to Phase 3 deliverables in `specs/roadmap.md`.
 
 | ID | Requirement |
 |---|---|
-| S03.1 | Seven distinct visual expressions are defined: Fine, Hungry, Bored, Happy, Showing Belly, Sick, Evolved |
+| S03.1 | Eight distinct visual expressions are defined: Fine, Hungry, Tired, Bored, Happy, Showing Belly, Sick, Evolved |
 | S03.2 | Each state is visually distinguishable from all others without reading any text label |
 | S03.3 | **Fine** — neutral dot eyes, small straight mouth |
 | S03.4 | **Hungry** — brows angled downward toward centre, mouth curves down |
@@ -39,6 +39,7 @@ All requirements are traceable to Phase 3 deliverables in `specs/roadmap.md`.
 | S03.8 | **Sick** — each eye is two crossing rectangles forming an X; mouth is uneven/jagged; a small indicator mark (e.g. droplet or sweat mark) is present |
 | S03.9 | **Evolved** — eyes are pixel diamond shapes; mouth is a wide smile; two small sparkle marks appear near the head |
 | S03.10 | If an unknown state key is passed to `getCatSVG()`, the Fine expression is used as fallback |
+| S03.11 | **Tired** — eyes are half-height rectangles (thinner than Bored's drooping lids), mouth is a small open square (yawn), a pixel ZZZ mark appears near the top of the head |
 
 ---
 

@@ -53,7 +53,7 @@ Deliverables:
 - Visual feedback on action buttons (brief animation on click)
 - Congratulations message shown on evolution
 
-Definition of done: All seven states produce a visually distinct cat without refreshing the page. Poo icons appear and are clickable.
+Definition of done: All eight states produce a visually distinct cat without refreshing the page. Poo icons appear and are clickable.
 
 ---
 

@@ -46,6 +46,27 @@ function getCatSVG(state, colour) {
     extras: ''
   };
 
+  // ── Tired expression ──────────────────────────────────────────────────────
+  var face_tired = {
+    eyes: [
+      // Left eye: very thin (height 4, thinner than Bored's 7)
+      '<rect x="58" y="83" width="14" height="4" fill="#2a2a2a"/>',
+      // Right eye
+      '<rect x="128" y="83" width="14" height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    mouth: [
+      // Small open square (yawn): dark outline with lighter interior
+      '<rect x="90" y="114" width="20" height="14" fill="#2a2a2a"/>',
+      '<rect x="93" y="117" width="14" height="8"  fill="#cc7777"/>'
+    ].join(''),
+    extras: [
+      // ZZZ pixel mark: three stacked rects, decreasing width, near top-right of head
+      '<rect x="150" y="54" width="10" height="4" fill="#aaaaff"/>',
+      '<rect x="152" y="46" width="8"  height="4" fill="#aaaaff"/>',
+      '<rect x="154" y="38" width="6"  height="4" fill="#aaaaff"/>'
+    ].join('')
+  };
+
   // ── Bored expression ──────────────────────────────────────────────────────
   var face_bored = {
     eyes: [
@@ -167,6 +188,7 @@ function getCatSVG(state, colour) {
   var faces = {
     fine:    face_fine,
     hungry:  face_hungry,
+    tired:   face_tired,
     bored:   face_bored,
     happy:   face_happy,
     sick:    face_sick,
@@ -303,6 +325,7 @@ function renderStateLabel() {
   var labels = {
     fine:    'Fine',
     hungry:  'Hungry',
+    tired:   'Tired',
     bored:   'Bored',
     happy:   'Happy',
     belly:   'Belly',
