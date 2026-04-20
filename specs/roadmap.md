@@ -40,7 +40,7 @@ Definition of done: Full new-session (Flow 1) and restart (Flow 7) user flows wo
 
 ---
 
-## Phase 3 — Cat Sprite and Visual State Feedback
+## ✅ Phase 3 — Cat Sprite and Visual State Feedback
 
 **Goal:** The cat has a visible presence. Its appearance reflects its current state.
 
