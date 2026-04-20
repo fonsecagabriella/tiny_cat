@@ -264,6 +264,18 @@ test('Tired > Bored priority', function () {
   var cat = createCat({ hunger: 60, happiness: 40, energy: 29 });
   assertEqual(evaluateState(cat), 'tired');
 });
+test('Sick > Evolved priority', function () {
+  var cat = createCat({ hunger: 5, happiness: 5, energy: 5, sick: true, evolved: true });
+  assertEqual(evaluateState(cat), 'sick');
+});
+test('Evolved > Belly priority', function () {
+  var cat = createCat({ hunger: 80, happiness: 80, energy: 80, evolved: true, bellyActive: true });
+  assertEqual(evaluateState(cat), 'evolved');
+});
+test('Belly > Happy priority', function () {
+  var cat = createCat({ hunger: 80, happiness: 80, energy: 80, bellyActive: true });
+  assertEqual(evaluateState(cat), 'belly');
+});
 test('Sick triggers after 2 ticks with hunger < 10', function () {
   var cat = createCat({ hunger: 5, happiness: 60, energy: 60, hungryTicks: 1 });
   runTick(cat);
