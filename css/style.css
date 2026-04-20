@@ -316,6 +316,21 @@ body::after {
 }
 #belly-tint.active { display: block; }
 
+/* ── Poo Removal Animation ───────────────────────────────────────────────── */
+@keyframes poo-remove {
+  0%   { opacity: 1; }
+  20%  { opacity: 0; }
+  40%  { opacity: 1; }
+  60%  { opacity: 0; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.poo-btn.poo-removing {
+  animation: poo-remove 0.3s steps(1, end) forwards;
+  pointer-events: none;
+}
+
 /* ── Poo Area ────────────────────────────────────────────────────────────── */
 #poo-area {
   min-height: 32px;

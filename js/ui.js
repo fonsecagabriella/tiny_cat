@@ -420,11 +420,15 @@ function showConfirm(message, onYes) {
 
 // ─── Poo click ────────────────────────────────────────────────────────────────
 
-function onPooClick() {
+function onPooClick(e) {
+  var btn = e.currentTarget;
   showConfirm('Clean up the poo? 💩', function () {
-    cleanPoo(cat);
-    checkSickRecovery(cat);
-    renderGame({});
+    btn.classList.add('poo-removing');
+    btn.addEventListener('animationend', function () {
+      cleanPoo(cat);
+      checkSickRecovery(cat);
+      renderGame({});
+    }, { once: true });
   });
 }
 
