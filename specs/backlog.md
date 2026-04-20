@@ -8,8 +8,8 @@ Unplanned work, deferred fixes, and ideas that are out of scope for the current 
 
 | # | Description | Priority | Source |
 |---|---|---|---|
-| BUG-01 | Jest/Node incompatibility: `tests/game.test.js` is browser-only and must be rewritten for Jest before CI works. | High | KI-01 |
-| BUG-02 | `specs/tech-stack.md` "No dependencies" section contradicts the Jest requirement — clarify scope to shipped app only. | Low | KI-02 |
+| ~~BUG-01~~ | ~~Jest/Node incompatibility: `tests/game.test.js` is browser-only and must be rewritten for Jest before CI works.~~ | ~~High~~ | ~~KI-01~~ | **Resolved** — `tests/game.test.js` rewritten; 57 tests passing. `tests/cat.test.js` added; 24 tests passing. |
+| ~~BUG-02~~ | ~~`specs/tech-stack.md` "No dependencies" section contradicts the Jest requirement — clarify scope to shipped app only.~~ | ~~Low~~ | ~~KI-02~~ | **Resolved** — "No dependencies" section clarified to shipped app only. |
 | BUG-03 | Belly counter not reset mid-event: if happiness drops while belly overlay is open, the counter retains its value and may re-trigger immediately. | Medium | KI-04 |
 
 ---
@@ -18,7 +18,7 @@ Unplanned work, deferred fixes, and ideas that are out of scope for the current 
 
 | # | Description | Priority |
 |---|---|---|
-| INF-01 | Create `package.json` and `.github/workflows/test.yml` for Jest CI. | High |
+| ~~INF-01~~ | ~~Create `package.json` and `.github/workflows/test.yml` for Jest CI.~~ | ~~High~~ | **Resolved** — `package.json`, `tests/run.js`, and `.github/workflows/test.yml` all in place. 81 tests pass on push. |
 | INF-02 | Set up GitHub Pages deployment (enable in repo settings, confirm base URL). | High |
 
 ---

@@ -87,10 +87,11 @@ Session state lives exclusively in memory (JS variables). Closing or refreshing 
 Unit tests cover the game logic only (`js/game.js`, `js/cat.js`). The UI layer (`js/ui.js`) is not unit tested — it is covered by manual user flow tests in `validation.md`.
 
 ### GitHub Actions workflow
-A workflow file at `.github/workflows/test.yml` runs on every push to `main` and on every pull request:
-1. Install Node.js (LTS)
-2. Install Jest (`npm install --save-dev jest`)
-3. Run `npm test`
+`.github/workflows/test.yml` is created and active. It runs on every push to `main` and on every pull request:
+1. Checkout code (`actions/checkout@v4`)
+2. Set up Node.js LTS (`actions/setup-node@v4`)
+3. Run `npm install`
+4. Run `npm test`
 
 Tests must pass before a feature branch is considered done.
 
