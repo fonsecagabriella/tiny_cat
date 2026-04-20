@@ -25,7 +25,7 @@ Definition of done: All state transitions and stat effects manually verified via
 
 ---
 
-## Phase 2 — Welcome Screen and Personalisation
+## ✅ Phase 2 — Welcome Screen and Personalisation
 
 **Goal:** The user can name and colour their cat before starting; restarts work end-to-end.
 
@@ -46,14 +46,14 @@ Definition of done: Full new-session (Flow 1) and restart (Flow 7) user flows wo
 
 Deliverables:
 - Pixel art inline SVG cat sprite in retro 8-bit CRT style, tinted via `--cat-colour` CSS custom property
-- Distinct visual expression per state: Normal, Hungry, Bored, Happy, Sick, Evolved
+- Distinct visual expression per state: Fine, Hungry, Bored, Happy, Showing Belly, Sick, Evolved
 - Evolved sprite visibly larger than Normal
 - Stat bars (Hunger, Happiness, Energy) with numeric display
 - Poo icons (up to 5) in a dedicated area; each is clickable
 - Visual feedback on action buttons (brief animation on click)
 - Congratulations message shown on evolution
 
-Definition of done: All six states produce a visually distinct cat without refreshing the page. Poo icons appear and are clickable.
+Definition of done: All seven states produce a visually distinct cat without refreshing the page. Poo icons appear and are clickable.
 
 ---
 

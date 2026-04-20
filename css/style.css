@@ -279,7 +279,8 @@ body::after {
 .state-label.state-happy   { border-color: var(--accent-green);   color: var(--accent-green); }
 .state-label.state-hungry  { border-color: var(--btn-feed);       color: var(--btn-feed); }
 .state-label.state-bored   { border-color: var(--accent-magenta); color: var(--accent-magenta); }
-.state-label.state-normal  { border-color: var(--text-dim);       color: var(--text-dim); }
+.state-label.state-fine    { border-color: var(--text-dim);       color: var(--text-dim); }
+.state-label.state-belly   { border-color: var(--accent-yellow);  color: var(--accent-yellow); }
 
 /* ── Cat Sprite ──────────────────────────────────────────────────────────── */
 #cat-sprite-container {
@@ -298,23 +299,11 @@ body::after {
   width: auto;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
-  filter: drop-shadow(0 0 6px currentColor);
   transition: transform 0.2s steps(3);
 }
 
 .cat-svg.state-evolved {
-  transform: scale(1.15);
-  filter:
-    drop-shadow(0 0 10px var(--accent-yellow))
-    drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
-}
-
-.cat-svg.state-sick {
-  filter: drop-shadow(0 0 6px var(--danger)) saturate(0.5);
-}
-
-.cat-svg.state-happy {
-  filter: drop-shadow(0 0 8px var(--accent-green));
+  transform: scale(1.25);
 }
 
 /* ── Poo Area ────────────────────────────────────────────────────────────── */
@@ -452,13 +441,13 @@ body::after {
 /* ── Footer ──────────────────────────────────────────────────────────────── */
 .footer-row { display: flex; justify-content: space-between; align-items: center; }
 #new-cat-btn,
-.theme-toggle { font-size: 7px; padding: 8px 14px; }
+.theme-toggle { font-size: 7px; padding: 8px 14px; margin-top: 20px; }
 
 .game-footer-text {
   font-size: 6px;
   color: var(--text-dim);
   text-align: center;
-  margin-top: 10px;
+  margin-top: 100px;
   letter-spacing: 1px;
   opacity: 0.7;
 }

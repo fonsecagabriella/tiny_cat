@@ -1,100 +1,97 @@
 // ui.js — DOM rendering, screens, events, and laser easter egg
 
-// ─── SVG Cat Sprite ───────────────────────────────────────────────────────────
+// ─── SVG Cat Sprite (pixel art — rect and polygon only) ───────────────────────
 
 function getCatSVG(state, colour) {
-  var inner = '#ffb3ba';
+  var inner = '#f0a0a0'; // inner ear: fixed pink
 
-  var faces = {
-    normal: {
-      eyes: [
-        '<circle cx="82" cy="90" r="7" fill="#333"/>',
-        '<circle cx="85" cy="87" r="2.5" fill="white"/>',
-        '<circle cx="118" cy="90" r="7" fill="#333"/>',
-        '<circle cx="121" cy="87" r="2.5" fill="white"/>'
-      ].join(''),
-      mouth:  '<path d="M 90 113 Q 100 121 110 113" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
-      extras: ''
-    },
-    hungry: {
-      eyes: [
-        '<ellipse cx="82" cy="92" rx="7" ry="5.5" fill="#333"/>',
-        '<circle cx="85" cy="89" r="2" fill="white"/>',
-        '<line x1="75" y1="85" x2="89" y2="88" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>',
-        '<ellipse cx="118" cy="92" rx="7" ry="5.5" fill="#333"/>',
-        '<circle cx="121" cy="89" r="2" fill="white"/>',
-        '<line x1="111" y1="88" x2="125" y2="85" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>'
-      ].join(''),
-      mouth:  '<path d="M 90 118 Q 100 110 110 118" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
-      extras: ''
-    },
-    bored: {
-      eyes: [
-        '<ellipse cx="82" cy="93" rx="7" ry="4" fill="#333"/>',
-        '<circle cx="85" cy="91" r="1.5" fill="white"/>',
-        '<ellipse cx="118" cy="93" rx="7" ry="4" fill="#333"/>',
-        '<circle cx="121" cy="91" r="1.5" fill="white"/>'
-      ].join(''),
-      mouth:  '<line x1="91" y1="115" x2="109" y2="115" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>',
-      extras: ''
-    },
-    happy: {
-      eyes: [
-        '<path d="M 75 93 Q 82 82 89 93" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>',
-        '<path d="M 111 93 Q 118 82 125 93" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>'
-      ].join(''),
-      mouth:  '<path d="M 87 111 Q 100 124 113 111" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>',
-      extras: [
-        '<circle cx="71" cy="102" r="7" fill="#ffb3c1" opacity="0.65"/>',
-        '<circle cx="129" cy="102" r="7" fill="#ffb3c1" opacity="0.65"/>'
-      ].join('')
-    },
-    sick: {
-      eyes: [
-        '<line x1="75" y1="83" x2="89" y2="97" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>',
-        '<line x1="89" y1="83" x2="75" y2="97" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>',
-        '<line x1="111" y1="83" x2="125" y2="97" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>',
-        '<line x1="125" y1="83" x2="111" y2="97" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>'
-      ].join(''),
-      mouth:  '<path d="M 90 114 Q 95 121 100 115 Q 105 109 110 115" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
-      extras: [
-        '<ellipse cx="143" cy="77" rx="7" ry="9" fill="#d4e8ff" stroke="#b0cce8" stroke-width="1"/>',
-        '<path d="M 140 74 Q 143 82 146 74" fill="#b0cce8"/>'
-      ].join('')
-    },
-    evolved: {
-      eyes: [
-        '<polygon points="82,83 84,88 89,90 84,92 82,97 80,92 75,90 80,88" fill="#FFD700"/>',
-        '<polygon points="118,83 120,88 125,90 120,92 118,97 116,92 111,90 116,88" fill="#FFD700"/>'
-      ].join(''),
-      mouth:  '<path d="M 85 110 Q 100 126 115 110" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>',
-      extras: [
-        '<circle cx="71" cy="102" r="8" fill="#ffb3c1" opacity="0.7"/>',
-        '<circle cx="129" cy="102" r="8" fill="#ffb3c1" opacity="0.7"/>',
-        '<text x="97" y="54" font-size="13" fill="#FFD700" text-anchor="middle">✦</text>',
-        '<text x="112" y="48" font-size="9" fill="#FFD700" text-anchor="middle">✦</text>'
-      ].join('')
-    }
+  // ── Fine expression ────────────────────────────────────────────────────────
+  var face_fine = {
+    eyes: [
+      '<rect x="58" y="80" width="14" height="14" fill="#2a2a2a"/>',
+      '<rect x="62" y="82" width="5"  height="5"  fill="white"/>',
+      '<rect x="128" y="80" width="14" height="14" fill="#2a2a2a"/>',
+      '<rect x="132" y="82" width="5"  height="5"  fill="white"/>'
+    ].join(''),
+    mouth: [
+      '<rect x="86"  y="116" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="106" y="116" width="8"  height="4" fill="#2a2a2a"/>',
+      '<rect x="94"  y="120" width="12" height="4" fill="#2a2a2a"/>'
+    ].join(''),
+    extras: ''
   };
 
-  var f = faces[state] || faces.normal;
+  var faces = { fine: face_fine };
+  var f = faces[state] || face_fine;
 
+  // ── Belly state: cat on its back ───────────────────────────────────────────
+  if (state === 'belly') {
+    return [
+      '<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="cat-svg state-belly">',
+      // Four legs pointing up
+      '  <rect x="44"  y="16" width="24" height="72" fill="' + colour + '"/>',
+      '  <rect x="76"  y="8"  width="24" height="80" fill="' + colour + '"/>',
+      '  <rect x="100" y="8"  width="24" height="80" fill="' + colour + '"/>',
+      '  <rect x="132" y="16" width="24" height="72" fill="' + colour + '"/>',
+      // Body
+      '  <rect x="36"  y="84" width="128" height="80" fill="' + colour + '"/>',
+      // Belly highlight
+      '  <rect x="52"  y="96" width="96"  height="56" fill="white" fill-opacity="0.25"/>',
+      // Head at bottom
+      '  <rect x="40"  y="160" width="120" height="64" fill="' + colour + '"/>',
+      // Ears pointing down
+      '  <polygon points="56,160 44,224 88,160"  fill="' + colour + '"/>',
+      '  <polygon points="112,160 156,224 144,160" fill="' + colour + '"/>',
+      '  <polygon points="62,160 54,208 80,160"   fill="' + inner + '"/>',
+      '  <polygon points="120,160 146,208 138,160" fill="' + inner + '"/>',
+      // Nose
+      '  <rect x="93" y="192" width="14" height="8" fill="#ff9999"/>',
+      // Happy eyes
+      '  <rect x="62"  y="174" width="14" height="14" fill="#2a2a2a"/>',
+      '  <rect x="66"  y="176" width="5"  height="5"  fill="white"/>',
+      '  <rect x="124" y="174" width="14" height="14" fill="#2a2a2a"/>',
+      '  <rect x="128" y="176" width="5"  height="5"  fill="white"/>',
+      // Happy mouth
+      '  <rect x="86"  y="202" width="8"  height="4" fill="#2a2a2a"/>',
+      '  <rect x="106" y="202" width="8"  height="4" fill="#2a2a2a"/>',
+      '  <rect x="94"  y="206" width="12" height="4" fill="#2a2a2a"/>',
+      // Tail to right
+      '  <rect x="160" y="92" width="32" height="20" fill="' + colour + '"/>',
+      '  <rect x="176" y="76" width="20" height="20" fill="' + colour + '"/>',
+      '</svg>'
+    ].join('\n');
+  }
+
+  // ── Upright cat body (all states except belly) ─────────────────────────────
   return [
     '<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="cat-svg state-' + state + '">',
-    '  <path d="M 148 212 Q 188 188 172 148" stroke="' + colour + '" stroke-width="15" fill="none" stroke-linecap="round"/>',
-    '  <ellipse cx="100" cy="185" rx="56" ry="46" fill="' + colour + '"/>',
-    '  <ellipse cx="74" cy="222" rx="20" ry="11" fill="' + colour + '"/>',
-    '  <ellipse cx="126" cy="222" rx="20" ry="11" fill="' + colour + '"/>',
-    '  <circle cx="100" cy="95" r="54" fill="' + colour + '"/>',
-    '  <polygon points="56,63 43,18 85,48" fill="' + colour + '"/>',
-    '  <polygon points="144,63 157,18 115,48" fill="' + colour + '"/>',
-    '  <polygon points="59,60 50,26 81,48" fill="' + inner + '"/>',
-    '  <polygon points="141,60 150,26 119,48" fill="' + inner + '"/>',
-    '  <line x1="35" y1="101" x2="80" y2="101" stroke="#666" stroke-width="1" opacity="0.5"/>',
-    '  <line x1="35" y1="109" x2="80" y2="108" stroke="#666" stroke-width="1" opacity="0.5"/>',
-    '  <line x1="120" y1="101" x2="165" y2="101" stroke="#666" stroke-width="1" opacity="0.5"/>',
-    '  <line x1="120" y1="108" x2="165" y2="109" stroke="#666" stroke-width="1" opacity="0.5"/>',
-    '  <ellipse cx="100" cy="106" rx="5" ry="4" fill="#ff9999"/>',
+    // Tail (vertical with curl tip)
+    '  <rect x="148" y="152" width="20" height="48" fill="' + colour + '"/>',
+    '  <rect x="136" y="144" width="24" height="16" fill="' + colour + '"/>',
+    // Body
+    '  <rect x="52" y="132" width="96" height="64" fill="' + colour + '"/>',
+    // Left paw
+    '  <rect x="52"  y="192" width="28" height="40" fill="' + colour + '"/>',
+    // Right paw
+    '  <rect x="120" y="192" width="28" height="40" fill="' + colour + '"/>',
+    // Head
+    '  <rect x="40" y="48" width="120" height="88" fill="' + colour + '"/>',
+    // Left ear
+    '  <polygon points="48,56 64,4 92,56"   fill="' + colour + '"/>',
+    // Right ear
+    '  <polygon points="108,56 136,4 152,56" fill="' + colour + '"/>',
+    // Inner left ear
+    '  <polygon points="56,56 68,20 84,56"   fill="' + inner + '"/>',
+    // Inner right ear
+    '  <polygon points="116,56 132,20 144,56" fill="' + inner + '"/>',
+    // Nose
+    '  <rect x="92" y="104" width="16" height="10" fill="#ff9999"/>',
+    // Whiskers (thin rects)
+    '  <rect x="4"   y="100" width="36" height="3" fill="#888888" opacity="0.6"/>',
+    '  <rect x="4"   y="110" width="36" height="3" fill="#888888" opacity="0.6"/>',
+    '  <rect x="160" y="100" width="36" height="3" fill="#888888" opacity="0.6"/>',
+    '  <rect x="160" y="110" width="36" height="3" fill="#888888" opacity="0.6"/>',
+    // Face (extras, eyes, mouth from expression object)
     '  ' + f.extras,
     '  ' + f.eyes,
     '  ' + f.mouth,
@@ -154,12 +151,13 @@ function renderStateLabel() {
   if (!cat) return;
   var state = evaluateState(cat);
   var labels = {
-    normal:  'Normal',
-    hungry:  'Hungry 🍽',
-    bored:   'Bored 😑',
-    happy:   'Happy 😸',
-    sick:    'Sick 🤒',
-    evolved: 'Evolved ✨'
+    fine:    'Fine',
+    hungry:  'Hungry',
+    bored:   'Bored',
+    happy:   'Happy',
+    belly:   'Belly',
+    sick:    'Sick',
+    evolved: 'Evolved'
   };
   document.getElementById('state-label').textContent = labels[state] || state;
   document.getElementById('state-label').className   = 'state-label state-' + state;

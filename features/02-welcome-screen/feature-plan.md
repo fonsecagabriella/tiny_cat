@@ -61,11 +61,11 @@ Verify: Colour input shows Rust on load. Picking a new colour immediately update
 **Goal:** Clicking Start creates the cat and transitions to the game screen. New Cat resets to the welcome screen.
 
 Tasks:
-1. Start button click handler: read name input and active swatch colour; call `createCat({ name, colour })` (preference randomly assigned inside `createCat`); call `startGame(cat)`; transition to game screen
-2. Game screen: render cat name in name display element; `--cat-colour` is already set from swatch selection
-3. New Cat button click handler: show confirmation prompt (`window.confirm` or custom modal); on confirm, call `stopGame()`; clear cat reference; reset name input and swatch to defaults; transition to welcome screen
+1. Start button click handler: read name input and colour input value; call `createCat({ name, colour })` (preference randomly assigned inside `createCat`); call `startGame(cat)`; show transition screen for ~2s; transition to game screen
+2. Game screen: render cat name in name display element; `--cat-colour` is already set from colour input selection
+3. New Cat button click handler: show confirmation prompt (custom modal); on confirm, call `stopGame()`; clear cat reference; reset name input and colour input to `#f4a261`; transition to welcome screen
 
-Verify: Flow 1 — enter name, select swatch, click Start → game screen shows correct name, `--cat-colour` matches chosen swatch. Flow 7 — click New Cat, confirm → welcome screen with cleared name and Rust swatch re-selected.
+Verify: Flow 1 — enter name, pick colour, click Start → transition screen appears, then game screen shows correct name, `--cat-colour` matches chosen colour. Flow 7 — click New Cat, confirm → welcome screen with cleared name and colour input reset to `#f4a261`.
 
 ---
 
