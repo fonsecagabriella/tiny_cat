@@ -57,7 +57,7 @@ Definition of done: All eight states produce a visually distinct cat without ref
 
 ---
 
-## Phase 4 — Sick State, Poo Cleaning, and Recovery
+## ✅ Phase 4 — Sick State, Poo Cleaning, and Recovery
 
 **Goal:** The full Sick → Recovery flow is complete and clearly communicated.
 
@@ -75,16 +75,37 @@ Definition of done: A cat can be driven into Sick state (both paths) and fully r
 
 ## Phase 5 — Easter Eggs
 
-**Goal:** Hidden interactions reward curious or attentive players.
+**Goal:** Two hidden interactions reward curious and attentive players without breaking the game loop.
 
-Details to be confirmed with creator before implementation.
+### Easter Egg 1 — Evolution Badge
 
-Deliverables (placeholder):
-- At least one discoverable interaction not listed in any visible UI
-- Easter egg does not conflict with state machine logic or stat values
-- Easter egg is reachable through normal play without breaking the game loop
+When the cat evolves, a permanent badge appears on the game screen showing how long it took.
+- Session start time is recorded when the game starts
+- On evolution, elapsed time is calculated and formatted as "Xm Ys"
+- Badge text: "[name] evolved in Xm Ys"
+- Badge is shown inside the evolution congratulations overlay AND persists as a small badge on the game screen after the overlay is dismissed
+- Badge is not visible before evolution occurs
+- Badge is not mentioned anywhere in the visible UI before it appears
 
-Definition of done: Easter egg can be triggered and produces a distinct, intentional response.
+### Easter Egg 2 — Tap to Pet
+
+A hidden interaction triggered by clicking/tapping the cat sprite directly.
+
+Trust condition (both must be true since session start):
+- Player has used Feed at least once
+- Player has used Play at least once
+
+Willing condition (both must be true at time of tap):
+- Trust condition met
+- All stats > 75
+
+On tap:
+- If willing: Happiness +10, brief purr animation, small heart pixel mark appears briefly near the head
+- If not willing: Happiness −15, Energy −10, brief "ouch" feedback message appears, small angry mark appears briefly near the head
+
+The tap-pet is a separate mechanic from the belly-event Pet button (Phase 4). No hint is shown anywhere in the UI — discoverable only by tapping the sprite.
+
+Definition of done: Both Easter eggs are triggerable through normal play. Neither conflicts with the state machine or existing stat logic. Both produce distinct, intentional responses.
 
 ---
 

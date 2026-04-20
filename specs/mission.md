@@ -213,3 +213,24 @@ Only one state is displayed at a time.
 8. The app is playable on desktop and mobile browsers (Chrome, Firefox, Safari).
 9. All controls (Feed, Play, Rest, Pet, New Cat) behave correctly and provide immediate visual feedback.
 10. The app loads and runs with no backend, no database, and no login.
+
+---
+
+## Easter Eggs
+
+| # | Name | Trigger | Effect |
+|---|---|---|---|
+| EE-01 | Evolution Badge | Cat evolves | Badge shows evolution time on game screen |
+| EE-02 | Tap to Pet | Tap/click cat sprite | Purr (+10 HAP) if willing; Bite (−15 HAP, −10 NRG) if not |
+
+### EE-02 Conditions
+
+**Trust condition** (tracked since session start — both must be true):
+- Feed used ≥ 1 time
+- Play used ≥ 1 time
+
+**Willing condition** (evaluated at time of tap — both must be true):
+- Trust condition met
+- All stats > 75
+
+Tap-pet is blocked when `cat.sick === true` or `cat.bellyActive === true`.
