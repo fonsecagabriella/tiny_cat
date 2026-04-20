@@ -24,23 +24,30 @@
         <input type="text" id="cat-name" maxlength="20" placeholder="ENTER NAME" autocomplete="off" spellcheck="false">
       </div>
       <div class="form-group">
-        <label>FUR COLOUR_</label>
-        <div id="colour-swatches" class="colour-swatches">
-          <button class="swatch active" data-colour="#f4a261" title="Rust"></button>
-          <button class="swatch" data-colour="#f2e0c8" title="Cream"></button>
-          <button class="swatch" data-colour="#8fbc8f" title="Sage"></button>
-          <button class="swatch" data-colour="#6c8ebf" title="Slate"></button>
-          <button class="swatch" data-colour="#b39ddb" title="Lilac"></button>
-          <button class="swatch" data-colour="#4a4a6a" title="Midnight"></button>
-        </div>
+        <label for="cat-colour">FUR COLOUR_</label>
+        <input type="color" id="cat-colour" value="#f4a261">
       </div>
       <button id="start-btn" class="btn btn-primary" disabled>&#9658; START</button>
     </div>
-    <button id="theme-toggle-welcome" class="btn btn-ghost theme-toggle">[ LIGHT ]</button>
+    <button id="theme-toggle-welcome" class="btn btn-ghost theme-toggle">Light Mode</button>
+  </div>
+
+  <!-- ── Transition Screen ─────────────────────────────────────── -->
+  <div id="transition-screen" class="screen hidden">
+    <div class="transition-content">
+      <p id="transition-name" class="transition-name"></p>
+      <p class="transition-dots"><span>.</span><span>.</span><span>.</span></p>
+    </div>
   </div>
 
   <!-- ── Game Screen ────────────────────────────────────────────── -->
   <div id="game-screen" class="screen hidden">
+
+    <div class="game-links">
+      <a href="#" class="game-link" target="_blank" rel="noopener">FORK</a>
+      <a href="#" class="game-link" target="_blank" rel="noopener">GITHUB</a>
+      <a href="#" class="game-link" target="_blank" rel="noopener">WEBSITE</a>
+    </div>
 
     <div class="game-header">
       <span id="cat-name-display"></span>
@@ -82,8 +89,10 @@
 
     <div class="footer-row">
       <button id="new-cat-btn" class="btn btn-ghost">NEW GAME</button>
-      <button id="theme-toggle-game" class="btn btn-ghost theme-toggle">[ LIGHT ]</button>
+      <button id="theme-toggle-game" class="btn btn-ghost theme-toggle">Light Mode</button>
     </div>
+
+    <p class="game-footer-text">created with &lt;3 and claude by imgabidotcom</p>
 
     <!-- Food panel -->
     <div id="food-panel" class="panel hidden">

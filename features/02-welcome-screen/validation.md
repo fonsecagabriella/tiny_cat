@@ -20,10 +20,14 @@ Run these first. All must pass before proceeding to user flow tests.
 | S07 | Type a single space into name input | Start button remains disabled |
 | S08 | Type one character into name input | Start button becomes enabled |
 | S09 | Clear the name input | Start button returns to disabled |
-| S10 | Rust swatch is visually selected | Rust swatch has active/selected styling; others do not |
+| S10 | Check colour input value on load | `<input type="color">` value is `#f4a261` (Rust) |
 | S11 | Check `--cat-colour` on `<html>` | Value is `#f4a261` (Rust) |
-| S12 | Click dark/light toggle | `data-theme` on `<html>` switches; page colours update |
-| S13 | Click toggle again | `data-theme` switches back to dark |
+| S12 | Click dark/light toggle | `data-theme` on `<html>` switches; page colours update; button label changes to "Dark Mode" |
+| S13 | Click toggle again | `data-theme` switches back to dark; button label returns to "Light Mode" |
+| S14 | Start a game and inspect game screen header | Three links are visible: Fork, GitHub profile, Personal website |
+| S15 | Inspect game screen footer | Static text "created with <3 and claude by imgabidotcom" is visible |
+| S16 | Click Start with a valid cat name | Transition screen appears before game screen; shows "[name] is being made" |
+| S17 | Observe transition duration | Transition plays for approximately 2 seconds before game screen appears |
 
 ---
 
@@ -42,11 +46,11 @@ Run these first. All must pass before proceeding to user flow tests.
 | 5 | Clear the input | Start returns to disabled |
 | 6 | Type `"Noodle"` again | Start enabled |
 | 7 | Type 25 characters | Input caps at 20 characters; excess is rejected |
-| 8 | Click the Slate swatch | Slate swatch is active; `--cat-colour` = `#6c8ebf`; other swatches are inactive |
-| 9 | Click Start | Welcome screen hidden; game screen shown |
-| 10 | Inspect game screen | Cat name `"Noodle"` displayed; colour `#6c8ebf` applied |
+| 8 | Use colour input to pick `#6c8ebf` (Slate) | `--cat-colour` on `<html>` updates to `#6c8ebf` |
+| 9 | Click Start | Transition screen appears ("Noodle is being made"); after ~2s, game screen shown |
+| 10 | Inspect game screen | Cat name `"Noodle"` displayed; colour `#6c8ebf` applied; header links visible; footer text visible |
 | 11 | Open console, inspect `cat` object | `cat.name === "Noodle"`, `cat.colour === "#6c8ebf"`, `cat.hunger === 80`, `cat.happiness === 80`, `cat.energy === 80`, `cat.preference` is one of `kibble/tuna/treats` |
-| 12 | Reload the page | Welcome screen shown again; name input empty; Rust swatch selected |
+| 12 | Reload the page | Welcome screen shown again; name input empty; colour input value is `#f4a261` |
 
 ---
 
@@ -61,7 +65,7 @@ Run these first. All must pass before proceeding to user flow tests.
 | 3 | Click Cancel on prompt | Prompt closes; game screen remains; cat is unchanged |
 | 4 | Click New Cat again | Confirmation prompt appears again |
 | 5 | Click Confirm | Welcome screen shown; game screen hidden |
-| 6 | Inspect welcome screen | Name input is empty; Rust swatch is selected; Start is disabled |
+| 6 | Inspect welcome screen | Name input is empty; colour input value is `#f4a261`; Start is disabled |
 | 7 | Open console, inspect game state | Tick interval has stopped; cat reference is null or cleared |
 
 ---
@@ -70,14 +74,14 @@ Run these first. All must pass before proceeding to user flow tests.
 
 | Step | Action | Expected |
 |---|---|---|
-| 1 | Open `index.html` | Dark mode is active by default |
-| 2 | Click toggle on welcome screen | Light mode activates; background/text colours change |
-| 3 | Start a game (Flow 1 step 6–9) | Game screen shown in light mode — theme carried over |
-| 4 | Click toggle on game screen | Switches back to dark mode |
-| 5 | Click New Cat → confirm restart | Welcome screen shown in dark mode |
-| 6 | Click toggle on welcome screen | Switches to light mode |
+| 1 | Open `index.html` | Dark mode is active by default; toggle button reads "Light Mode" |
+| 2 | Click toggle on welcome screen | Light mode activates; background/text colours change; button label reads "Dark Mode" |
+| 3 | Start a game (Flow 1 step 6–9) | Game screen shown in light mode — theme and label carried over |
+| 4 | Click toggle on game screen | Switches back to dark mode; label reads "Light Mode" |
+| 5 | Click New Cat → confirm restart | Welcome screen shown in dark mode; label reads "Light Mode" |
+| 6 | Click toggle on welcome screen | Switches to light mode; label reads "Dark Mode" |
 | 7 | Start game again | Game screen shown in light mode |
-| 8 | Reload the page | Dark mode restored (not persisted) |
+| 8 | Reload the page | Dark mode restored (not persisted); label reads "Light Mode" |
 | 9 | Check `localStorage` in Application panel | No theme key present |
 
 ---

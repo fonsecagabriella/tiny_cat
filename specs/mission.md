@@ -39,6 +39,7 @@ Demonstrate a complete, polished, interactive front-end application: real-time s
 - Toggle is persistent within the session (not saved to localStorage)
 - Toggle is visible at all times on both the welcome screen and game screen
 - Dark mode is the default on load
+- Button label reads "Light Mode" in dark mode and "Dark Mode" in light mode
 
 ---
 

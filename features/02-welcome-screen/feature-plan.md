@@ -44,16 +44,15 @@ Verify: Start button disabled on empty input and whitespace-only input. Enabled 
 
 ### Group 3 — Colour Picker
 
-**Goal:** Six preset swatches are shown. One is selected by default. Selecting a swatch updates the CSS custom property `--cat-colour` on `<html>`.
+**Goal:** A free colour input is shown with `#f4a261` as the default. Changing the colour updates `--cat-colour` on `<html>`.
 
 Tasks:
-1. Render 6 swatch buttons in the swatch container; each carries a `data-colour` attribute with its hex value
-2. Swatches: Rust `#f4a261`, Cream `#f2e0c8`, Sage `#8fbc8f`, Slate `#6c8ebf`, Lilac `#b39ddb`, Midnight `#4a4a6a`
-3. Rust is selected by default on page load; apply `active` class and set `--cat-colour` on `<html>` to its value
-4. Clicking a swatch: remove `active` from all swatches, add to clicked swatch, update `--cat-colour`
-5. Selection is mutually exclusive — only one swatch active at a time
+1. Render `<input type="color" id="cat-colour" value="#f4a261">` in the welcome form
+2. On page load, set `--cat-colour` on `<html>` to `#f4a261`
+3. Attach `input` event listener: on each change, update `--cat-colour` on `<html>` to the selected value
+4. On restart (New Cat confirmed): reset `colourInput.value` to `#f4a261` and update `--cat-colour` accordingly
 
-Verify: Default swatch is visually selected on load. Clicking each swatch updates `--cat-colour` (check in DevTools → Elements → `<html>` style). Only one swatch has the active class at any time.
+Verify: Colour input shows Rust on load. Picking a new colour immediately updates `--cat-colour` (check in DevTools → Elements → `<html>` style). Restarting resets the input and property to `#f4a261`.
 
 ---
 
@@ -77,7 +76,7 @@ Verify: Flow 1 — enter name, select swatch, click Start → game screen shows 
 Tasks:
 1. Toggle button click handler: check current `data-theme` on `<html>`; if absent or `"dark"`, set `data-theme="light"`; otherwise set `data-theme="dark"`
 2. `css/style.css`: define CSS custom properties under `[data-theme="dark"]` (default) and `[data-theme="light"]`; apply `[data-theme="dark"]` as the base/default on `html`
-3. Toggle button label or icon updates to reflect current mode
+3. Toggle button label updates on each click: "Light Mode" when currently in dark mode; "Dark Mode" when currently in light mode
 4. No localStorage interaction — on page reload, dark mode is restored by the CSS default
 
 Verify: Toggle switches theme on welcome screen and game screen. Transitioning between screens preserves the current theme. Reloading the page resets to dark mode.

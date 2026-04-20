@@ -105,8 +105,16 @@ function getCatSVG(state, colour) {
 // ─── Screen Management ────────────────────────────────────────────────────────
 
 function showScreen(id) {
-  document.getElementById('welcome-screen').classList.toggle('hidden', id !== 'welcome');
-  document.getElementById('game-screen').classList.toggle('hidden',   id !== 'game');
+  document.getElementById('welcome-screen').classList.toggle('hidden',    id !== 'welcome');
+  document.getElementById('transition-screen').classList.toggle('hidden', id !== 'transition');
+  var gameEl = document.getElementById('game-screen');
+  gameEl.classList.toggle('hidden', id !== 'game');
+  if (id === 'game') {
+    gameEl.style.opacity = '0';
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { gameEl.style.opacity = '1'; });
+    });
+  }
 }
 
 // ─── Rendering ────────────────────────────────────────────────────────────────
@@ -318,28 +326,20 @@ function initLaser() {
 document.addEventListener('DOMContentLoaded', function () {
 
   // Welcome screen
-  var nameInput      = document.getElementById('cat-name');
-  var startBtn       = document.getElementById('start-btn');
-  var selectedColour = '#f4a261'; // Rust default
+  var nameInput   = document.getElementById('cat-name');
+  var colourInput = document.getElementById('cat-colour');
+  var startBtn    = document.getElementById('start-btn');
 
-  // Initialise --cat-colour and active swatch on load
-  document.documentElement.style.setProperty('--cat-colour', selectedColour);
-
-  // Colour swatches
-  document.querySelectorAll('.swatch').forEach(function (swatch) {
-    swatch.style.backgroundColor = swatch.dataset.colour;
-    swatch.addEventListener('click', function () {
-      document.querySelectorAll('.swatch').forEach(function (s) { s.classList.remove('active'); });
-      swatch.classList.add('active');
-      selectedColour = swatch.dataset.colour;
-      document.documentElement.style.setProperty('--cat-colour', selectedColour);
-    });
+  // Group 3 — Colour picker: initialise --cat-colour on load
+  document.documentElement.style.setProperty('--cat-colour', colourInput.value);
+  colourInput.addEventListener('input', function () {
+    document.documentElement.style.setProperty('--cat-colour', colourInput.value);
   });
 
-  // Theme toggle
+  // Group 5 — Theme toggle
   function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    var label = theme === 'light' ? '[ DARK ]' : '[ LIGHT ]';
+    var label = theme === 'light' ? 'Dark Mode' : 'Light Mode';
     document.getElementById('theme-toggle-welcome').textContent = label;
     document.getElementById('theme-toggle-game').textContent    = label;
   }
@@ -352,17 +352,24 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('theme-toggle-welcome').addEventListener('click', onThemeToggle);
   document.getElementById('theme-toggle-game').addEventListener('click', onThemeToggle);
 
+  // Group 2 — Name input / Start button
   nameInput.addEventListener('input', function () {
     startBtn.disabled = nameInput.value.trim().length === 0;
   });
 
+  // Group 4 — Cat creation with transition (REQ-W10)
   startBtn.addEventListener('click', function () {
     var name   = nameInput.value.trim().slice(0, 20);
-    cat = createCat({ name: name, colour: selectedColour });
-    document.getElementById('cat-name-display').textContent = name;
-    showScreen('game');
+    var colour = colourInput.value;
+    cat = createCat({ name: name, colour: colour });
     startGame(cat);
-    renderGame({});
+    document.getElementById('transition-name').textContent = name + ' is being made';
+    document.getElementById('cat-name-display').textContent = name;
+    showScreen('transition');
+    setTimeout(function () {
+      renderGame({});
+      showScreen('game');
+    }, 2000);
   });
 
   // Feed
@@ -453,14 +460,10 @@ document.addEventListener('DOMContentLoaded', function () {
     showConfirm('Start over with a new cat?', function () {
       stopGame();
       cat = null;
-      nameInput.value   = '';
-      startBtn.disabled = true;
-      // Reset swatch to Rust
-      selectedColour = '#f4a261';
-      document.documentElement.style.setProperty('--cat-colour', selectedColour);
-      document.querySelectorAll('.swatch').forEach(function (s) { s.classList.remove('active'); });
-      var rustSwatch = document.querySelector('.swatch[data-colour="#f4a261"]');
-      if (rustSwatch) rustSwatch.classList.add('active');
+      nameInput.value    = '';
+      startBtn.disabled  = true;
+      colourInput.value  = '#f4a261';
+      document.documentElement.style.setProperty('--cat-colour', '#f4a261');
       showScreen('welcome');
     });
   });

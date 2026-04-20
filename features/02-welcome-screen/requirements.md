@@ -20,12 +20,10 @@ All requirements are traceable to Phase 2 deliverables in `specs/roadmap.md` and
 
 | ID | Requirement |
 |---|---|
-| W02.1 | The colour picker consists of exactly 6 preset swatches |
-| W02.2 | Swatches: Rust `#f4a261`, Cream `#f2e0c8`, Sage `#8fbc8f`, Slate `#6c8ebf`, Lilac `#b39ddb`, Midnight `#4a4a6a` |
-| W02.3 | Rust (`#f4a261`) is selected by default on page load |
-| W02.4 | Selecting a swatch sets the `--cat-colour` CSS custom property on the `<html>` element to that swatch's hex value |
-| W02.5 | Only one swatch can be active at a time (mutually exclusive selection) |
-| W02.6 | On restart (New Cat confirmed), the swatch selection resets to Rust |
+| W02.1 | The colour picker is a free colour input (`<input type="color">`), not preset swatches |
+| W02.2 | Default colour on load is `#f4a261` (Rust) |
+| W02.3 | Selected colour sets the `--cat-colour` CSS custom property on the `<html>` element |
+| W02.4 | On restart (New Cat confirmed), the colour input resets to `#f4a261` |
 
 ---
 
@@ -79,9 +77,40 @@ All requirements are traceable to Phase 2 deliverables in `specs/roadmap.md` and
 
 | ID | Requirement |
 |---|---|
-| W07.1 | A dark/light mode toggle button is visible on both the welcome screen and game screen |
+| W07.1 | A single toggle button is visible on both the welcome screen and game screen |
 | W07.2 | Dark mode is the default on page load — no user action required |
 | W07.3 | Clicking the toggle switches between dark and light mode by setting `data-theme` on `<html>` |
 | W07.4 | The toggle state persists through screen transitions (welcome → game → welcome) within the same session |
 | W07.5 | The toggle state is not saved to `localStorage` — reloading the page resets to dark mode |
-| W07.6 | The toggle button reflects the current mode (label or icon updates on each click) |
+| W07.6 | Button label reads "Light Mode" when in dark mode, and "Dark Mode" when in light mode |
+
+---
+
+## REQ-W08 — Header Links (game screen only)
+
+| ID | Requirement |
+|---|---|
+| W08.1 | Top of game screen shows three links: Fork (GitHub repo), GitHub profile, Personal website |
+| W08.2 | Links open in a new tab |
+| W08.3 | URLs to be confirmed by creator before implementation (placeholders acceptable for now) |
+
+---
+
+## REQ-W09 — Footer
+
+| ID | Requirement |
+|---|---|
+| W09.1 | Bottom of game screen shows static text: "created with <3 and claude by imgabidotcom" |
+| W09.2 | Footer is always visible on game screen |
+
+---
+
+## REQ-W10 — Pet Creation Transition
+
+| ID | Requirement |
+|---|---|
+| W10.1 | After Start is clicked, before the game screen appears, a transition screen is shown |
+| W10.2 | Transition shows: "[pet name] is being made" |
+| W10.3 | A short animation plays (spinner, dots, or similar) |
+| W10.4 | After animation completes, game screen fades in |
+| W10.5 | Transition duration: approximately 2 seconds |
