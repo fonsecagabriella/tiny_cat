@@ -318,6 +318,8 @@ function renderSprite() {
   var state     = evaluateState(cat);
   var container = document.getElementById('cat-sprite-container');
   container.innerHTML = getCatSVG(state, cat.colour);
+  var tint = document.getElementById('belly-tint');
+  if (tint) tint.classList.toggle('active', state === 'belly');
 }
 
 function renderGame(events) {
