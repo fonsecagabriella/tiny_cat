@@ -19,6 +19,25 @@
   --block-empty:     #222233;
 }
 
+/* ── Light Theme ─────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:              #f5f0e8;
+  --screen-bg:       #faf7f2;
+  --border:          #5566cc;
+  --text-primary:    #1a1a2e;
+  --text-dim:        #666688;
+  --accent-yellow:   #cc8800;
+  --accent-magenta:  #aa00aa;
+  --accent-cyan:     #0077aa;
+  --accent-green:    #006622;
+  --danger:          #cc2222;
+  --btn-feed:        #cc4400;
+  --btn-play:        #005522;
+  --btn-rest:        #003399;
+  --btn-pet:         #880088;
+  --block-empty:     #ddd8cc;
+}
+
 /* ── Reset ───────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -132,20 +151,19 @@ body::after {
 .form-group input[type="text"]::placeholder { color: #333355; }
 .form-group input[type="text"]:focus { border-color: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan); }
 
-.colour-picker-row { display: flex; align-items: center; gap: 12px; }
+.colour-swatches { display: flex; gap: 10px; flex-wrap: wrap; }
 
-.form-group input[type="color"] {
-  width: 40px;
-  height: 40px;
-  border: 2px solid var(--border);
-  border-radius: 0;
-  padding: 2px;
+.swatch {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--text-dim);
   cursor: pointer;
-  background: var(--bg);
+  padding: 0;
+  background-color: attr(data-colour);
+  transition: border-color 0.05s, transform 0.05s;
 }
-.form-group input[type="color"]:focus { border-color: var(--accent-cyan); }
-
-.colour-label { font-size: 7px; color: var(--text-dim); }
+.swatch:hover  { transform: scale(1.15); }
+.swatch.active { border-color: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan); }
 
 /* ── Buttons ─────────────────────────────────────────────────────────────── */
 .btn {
@@ -416,8 +434,9 @@ body::after {
 #message-area.visible { opacity: 1; }
 
 /* ── Footer ──────────────────────────────────────────────────────────────── */
-.footer-row { display: flex; justify-content: center; }
-#new-cat-btn { font-size: 7px; padding: 8px 14px; }
+.footer-row { display: flex; justify-content: space-between; align-items: center; }
+#new-cat-btn,
+.theme-toggle { font-size: 7px; padding: 8px 14px; }
 
 /* ── Food Panel ──────────────────────────────────────────────────────────── */
 .panel {

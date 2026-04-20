@@ -29,6 +29,19 @@ Demonstrate a complete, polished, interactive front-end application: real-time s
 
 ---
 
+## Visual Modes
+
+| Mode | Description |
+|---|---|
+| Dark (default) | Dark background, bright accent colours — matches retro CRT style |
+| Light | Light background, muted palette — optional, user-toggled |
+
+- Toggle is persistent within the session (not saved to localStorage)
+- Toggle is visible at all times on both the welcome screen and game screen
+- Dark mode is the default on load
+
+---
+
 ## Stats
 
 | Stat | Range | Normal decay | Evolved decay | Notes |

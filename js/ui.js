@@ -318,9 +318,39 @@ function initLaser() {
 document.addEventListener('DOMContentLoaded', function () {
 
   // Welcome screen
-  var nameInput  = document.getElementById('cat-name');
-  var colourInput = document.getElementById('cat-colour');
-  var startBtn   = document.getElementById('start-btn');
+  var nameInput      = document.getElementById('cat-name');
+  var startBtn       = document.getElementById('start-btn');
+  var selectedColour = '#f4a261'; // Rust default
+
+  // Initialise --cat-colour and active swatch on load
+  document.documentElement.style.setProperty('--cat-colour', selectedColour);
+
+  // Colour swatches
+  document.querySelectorAll('.swatch').forEach(function (swatch) {
+    swatch.style.backgroundColor = swatch.dataset.colour;
+    swatch.addEventListener('click', function () {
+      document.querySelectorAll('.swatch').forEach(function (s) { s.classList.remove('active'); });
+      swatch.classList.add('active');
+      selectedColour = swatch.dataset.colour;
+      document.documentElement.style.setProperty('--cat-colour', selectedColour);
+    });
+  });
+
+  // Theme toggle
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    var label = theme === 'light' ? '[ DARK ]' : '[ LIGHT ]';
+    document.getElementById('theme-toggle-welcome').textContent = label;
+    document.getElementById('theme-toggle-game').textContent    = label;
+  }
+
+  function onThemeToggle() {
+    var current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'light' ? 'dark' : 'light');
+  }
+
+  document.getElementById('theme-toggle-welcome').addEventListener('click', onThemeToggle);
+  document.getElementById('theme-toggle-game').addEventListener('click', onThemeToggle);
 
   nameInput.addEventListener('input', function () {
     startBtn.disabled = nameInput.value.trim().length === 0;
@@ -328,10 +358,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   startBtn.addEventListener('click', function () {
     var name   = nameInput.value.trim().slice(0, 20);
-    var colour = colourInput.value;
-    cat = createCat({ name: name, colour: colour });
+    cat = createCat({ name: name, colour: selectedColour });
     document.getElementById('cat-name-display').textContent = name;
-    document.documentElement.style.setProperty('--cat-colour', colour);
     showScreen('game');
     startGame(cat);
     renderGame({});
@@ -425,9 +453,14 @@ document.addEventListener('DOMContentLoaded', function () {
     showConfirm('Start over with a new cat?', function () {
       stopGame();
       cat = null;
-      nameInput.value    = '';
-      startBtn.disabled  = true;
-      colourInput.value  = '#f4a261';
+      nameInput.value   = '';
+      startBtn.disabled = true;
+      // Reset swatch to Rust
+      selectedColour = '#f4a261';
+      document.documentElement.style.setProperty('--cat-colour', selectedColour);
+      document.querySelectorAll('.swatch').forEach(function (s) { s.classList.remove('active'); });
+      var rustSwatch = document.querySelector('.swatch[data-colour="#f4a261"]');
+      if (rustSwatch) rustSwatch.classList.add('active');
       showScreen('welcome');
     });
   });

@@ -4,7 +4,7 @@ Each phase is a discrete, shippable increment. Phases build on each other; later
 
 ---
 
-## Phase 1 — Core Game Loop
+## ✅ Phase 1 — Core Game Loop
 
 **Goal:** The game engine works. Stats decay, actions fire, state transitions happen — verifiable via browser console with no visual polish.
 
@@ -36,7 +36,7 @@ Deliverables:
 - Game screen scaffold showing cat name and chosen colour
 - "New Cat" button with confirmation prompt → resets to Welcome screen
 
-Definition of done: Full new-session (Flow 1) and restart (Flow 7) user flows work end-to-end.
+Definition of done: Full new-session (Flow 1) and restart (Flow 7) user flows work end-to-end. Dark/light mode toggle works correctly. Validation is manual only — no unit tests required for this phase.
 
 ---
 
@@ -45,7 +45,7 @@ Definition of done: Full new-session (Flow 1) and restart (Flow 7) user flows wo
 **Goal:** The cat has a visible presence. Its appearance reflects its current state.
 
 Deliverables:
-- Inline SVG cat sprite tinted by `--cat-colour` CSS custom property
+- Pixel art inline SVG cat sprite in retro 8-bit CRT style, tinted via `--cat-colour` CSS custom property
 - Distinct visual expression per state: Normal, Hungry, Bored, Happy, Sick, Evolved
 - Evolved sprite visibly larger than Normal
 - Stat bars (Hunger, Happiness, Energy) with numeric display

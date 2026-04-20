@@ -1,0 +1,83 @@
+# Feature Plan — Phase 2: Welcome Screen and Personalisation
+
+## Overview
+
+Implement the welcome screen, cat personalisation flow, game screen scaffold, restart flow, and dark/light mode toggle. No game logic changes — this phase wires the UI to the existing `createCat()` and `startGame()` functions from Phase 1.
+
+## Files
+
+- `index.html` — welcome screen + game screen markup; two screens toggled by CSS
+- `js/ui.js` — DOM manipulation, event listeners, screen transitions
+- `css/style.css` — swatch colours, screen visibility rules, dark/light theme variables
+
+---
+
+## Task Groups
+
+### Group 1 — HTML Structure
+
+**Goal:** Both screens exist in the DOM with correct element IDs. Neither screen has functionality yet.
+
+Tasks:
+1. Create welcome screen markup: heading, name input (`maxlength="20"`), colour swatch container, Start button
+2. Create game screen scaffold markup: cat name display, colour indicator area, action button stubs (Feed, Play, Rest, New Cat), stat placeholder text
+3. Set initial visibility: welcome screen visible, game screen hidden (CSS class or `hidden` attribute)
+4. Dark/light toggle button present in both screens' markup
+
+Verify: Page loads showing welcome screen. Game screen is not visible. Inspect DOM confirms both screens exist.
+
+---
+
+### Group 2 — Name Input and Start Button
+
+**Goal:** Start button is disabled until the name field contains at least one non-whitespace character. Input is capped at 20 characters.
+
+Tasks:
+1. Attach `input` event listener to name field; on each keystroke, enable/disable Start button based on `value.trim().length >= 1`
+2. Enforce `maxlength="20"` via HTML attribute (no JS needed)
+3. Start button is disabled (`disabled` attribute) on page load
+4. Prevent form submission default if wrapped in a `<form>`
+
+Verify: Start button disabled on empty input and whitespace-only input. Enabled as soon as one non-whitespace character is typed. Input cannot exceed 20 characters.
+
+---
+
+### Group 3 — Colour Picker
+
+**Goal:** Six preset swatches are shown. One is selected by default. Selecting a swatch updates the CSS custom property `--cat-colour` on `<html>`.
+
+Tasks:
+1. Render 6 swatch buttons in the swatch container; each carries a `data-colour` attribute with its hex value
+2. Swatches: Rust `#f4a261`, Cream `#f2e0c8`, Sage `#8fbc8f`, Slate `#6c8ebf`, Lilac `#b39ddb`, Midnight `#4a4a6a`
+3. Rust is selected by default on page load; apply `active` class and set `--cat-colour` on `<html>` to its value
+4. Clicking a swatch: remove `active` from all swatches, add to clicked swatch, update `--cat-colour`
+5. Selection is mutually exclusive — only one swatch active at a time
+
+Verify: Default swatch is visually selected on load. Clicking each swatch updates `--cat-colour` (check in DevTools → Elements → `<html>` style). Only one swatch has the active class at any time.
+
+---
+
+### Group 4 — Cat Creation and New Cat Flow
+
+**Goal:** Clicking Start creates the cat and transitions to the game screen. New Cat resets to the welcome screen.
+
+Tasks:
+1. Start button click handler: read name input and active swatch colour; call `createCat({ name, colour })` (preference randomly assigned inside `createCat`); call `startGame(cat)`; transition to game screen
+2. Game screen: render cat name in name display element; `--cat-colour` is already set from swatch selection
+3. New Cat button click handler: show confirmation prompt (`window.confirm` or custom modal); on confirm, call `stopGame()`; clear cat reference; reset name input and swatch to defaults; transition to welcome screen
+
+Verify: Flow 1 — enter name, select swatch, click Start → game screen shows correct name, `--cat-colour` matches chosen swatch. Flow 7 — click New Cat, confirm → welcome screen with cleared name and Rust swatch re-selected.
+
+---
+
+### Group 5 — Dark/Light Mode Toggle
+
+**Goal:** A toggle button switches between dark (default) and light theme on both screens. Preference lasts the session only.
+
+Tasks:
+1. Toggle button click handler: check current `data-theme` on `<html>`; if absent or `"dark"`, set `data-theme="light"`; otherwise set `data-theme="dark"`
+2. `css/style.css`: define CSS custom properties under `[data-theme="dark"]` (default) and `[data-theme="light"]`; apply `[data-theme="dark"]` as the base/default on `html`
+3. Toggle button label or icon updates to reflect current mode
+4. No localStorage interaction — on page reload, dark mode is restored by the CSS default
+
+Verify: Toggle switches theme on welcome screen and game screen. Transitioning between screens preserves the current theme. Reloading the page resets to dark mode.

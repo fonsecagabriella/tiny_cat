@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,13 +25,18 @@
       </div>
       <div class="form-group">
         <label>FUR COLOUR_</label>
-        <div class="colour-picker-row">
-          <input type="color" id="cat-colour" value="#f4a261">
-          <span class="colour-label">SELECT COLOUR</span>
+        <div id="colour-swatches" class="colour-swatches">
+          <button class="swatch active" data-colour="#f4a261" title="Rust"></button>
+          <button class="swatch" data-colour="#f2e0c8" title="Cream"></button>
+          <button class="swatch" data-colour="#8fbc8f" title="Sage"></button>
+          <button class="swatch" data-colour="#6c8ebf" title="Slate"></button>
+          <button class="swatch" data-colour="#b39ddb" title="Lilac"></button>
+          <button class="swatch" data-colour="#4a4a6a" title="Midnight"></button>
         </div>
       </div>
       <button id="start-btn" class="btn btn-primary" disabled>&#9658; START</button>
     </div>
+    <button id="theme-toggle-welcome" class="btn btn-ghost theme-toggle">[ LIGHT ]</button>
   </div>
 
   <!-- ── Game Screen ────────────────────────────────────────────── -->
@@ -77,6 +82,7 @@
 
     <div class="footer-row">
       <button id="new-cat-btn" class="btn btn-ghost">NEW GAME</button>
+      <button id="theme-toggle-game" class="btn btn-ghost theme-toggle">[ LIGHT ]</button>
     </div>
 
     <!-- Food panel -->
