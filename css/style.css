@@ -398,7 +398,7 @@ body::after {
 
 .stat-row {
   display: grid;
-  grid-template-columns: auto 1fr 28px;
+  grid-template-columns: 56px 1fr 28px;
   align-items: center;
   gap: 10px;
 }
@@ -407,6 +407,7 @@ body::after {
   font-size: 7px;
   color: var(--text-dim);
   letter-spacing: 1px;
+  text-align: right;
 }
 
 .stat-bar {
