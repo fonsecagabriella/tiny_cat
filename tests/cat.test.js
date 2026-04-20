@@ -155,6 +155,14 @@ test('evolvedTicks resets when any stat < 90', function () {
   assertEqual(cat.evolvedTicks, 0, 'evolvedTicks reset');
 });
 
+test('createCat feedCount defaults to 0', function () {
+  var cat = createCat({});
+  assertEqual(cat.feedCount, 0, 'feedCount');
+});
+test('createCat playCount defaults to 0', function () {
+  var cat = createCat({});
+  assertEqual(cat.playCount, 0, 'playCount');
+});
 test('fullHungerTicks resets after natural poo fires', function () {
   var cat = createCat({ hunger: 100, poos: 0, fullHungerTicks: 4, happiness: 60 });
   updateCounters(cat); // fullHungerTicks → 5

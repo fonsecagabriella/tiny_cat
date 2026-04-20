@@ -248,6 +248,22 @@ test('Evolved > Happy priority', function () {
   var cat = createCat({ hunger: 95, happiness: 95, energy: 95, evolved: true });
   assertEqual(evaluateState(cat), 'evolved');
 });
+test('State: tired when energy < 30', function () {
+  var cat = createCat({ hunger: 60, happiness: 60, energy: 29 });
+  assertEqual(evaluateState(cat), 'tired');
+});
+test('State: not tired when energy = 30', function () {
+  var cat = createCat({ hunger: 60, happiness: 60, energy: 30 });
+  assert(evaluateState(cat) !== 'tired', 'should not be tired at energy 30');
+});
+test('Hungry > Tired priority', function () {
+  var cat = createCat({ hunger: 29, happiness: 60, energy: 29 });
+  assertEqual(evaluateState(cat), 'hungry');
+});
+test('Tired > Bored priority', function () {
+  var cat = createCat({ hunger: 60, happiness: 40, energy: 29 });
+  assertEqual(evaluateState(cat), 'tired');
+});
 test('Sick triggers after 2 ticks with hunger < 10', function () {
   var cat = createCat({ hunger: 5, happiness: 60, energy: 60, hungryTicks: 1 });
   runTick(cat);
