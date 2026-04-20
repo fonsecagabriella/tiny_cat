@@ -109,7 +109,7 @@ Definition of done: Both Easter eggs are triggerable through normal play. Neithe
 
 ---
 
-## Phase 6 — Polish and Deploy
+## ✅ Phase 6 — Polish and Deploy
 
 **Goal:** The app is visually complete, responsive, and live on GitHub Pages.
 
@@ -127,16 +127,13 @@ Definition of done: App is live at the GitHub Pages URL and passes all success c
 
 ## Phase 7 — Testing & CI
 
-**Goal:** Game logic is covered by automated unit tests. Tests run automatically on every push via GitHub Actions.
+**Goal:** All game logic added or changed since Phase 1 is covered by automated unit tests. GitHub Actions CI stays green.
 
 Deliverables:
-- `package.json` with Jest configured as test runner
-- `tests/game.test.js` covering state machine, decay rates, and tick counters
-- `tests/cat.test.js` covering stat boundaries, poo mechanic, and action effects
-- `.github/workflows/test.yml` running on every push to main and every pull request:
-  1. Install Node.js LTS
-  2. Run `npm install`
-  3. Run `npm test` — must pass before merge
-- Game logic files (`js/game.js`, `js/cat.js`) refactored to export functions for Jest if not already done
+- Audit of existing test coverage against all phases completed since Phase 1
+- `tests/game.test.js` expanded to cover any gaps found in audit
+- `tests/cat.test.js` expanded to cover any gaps found in audit
+- All existing tests must remain passing
+- `.github/workflows/test.yml` already active — verify green on push after new tests added
 
-Definition of done: `npm test` passes locally and GitHub Actions shows green on the repository.
+Definition of done: Coverage audit completed and documented. All gaps addressed. `npm test` passes locally with expanded suite. GitHub Actions shows green on push.
