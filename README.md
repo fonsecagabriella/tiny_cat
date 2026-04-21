@@ -24,6 +24,100 @@ Core features:
 
 ---
 
+## Design Philosophy 🎨
+
+Tiny Cat is designed to be a little difficult — intentionally.
+
+Cats are not easy. They are opinionated, unpredictable, and demanding. They will ignore you when you want attention and demand attention when you are busy. Tiny Cat reflects this.
+
+Key design decisions:
+- **Stats decay faster than you expect.** You cannot walk away for long. Cats notice.
+- **Evolution is rare.** All three stats must stay high consistently — not just briefly. Patience is required.
+- **Trust must be earned.** The cat does not accept affection from strangers. Feed it. Play with it. Then maybe it will let you touch it. Maybe.
+- **Poos are urgent.** One is manageable. Two is a countdown. Cats are clean animals and they will let you know.
+- **Happiness is fragile.** Energy affects happiness. Too many poos affect happiness. Being ignored affects happiness. Cats contain multitudes.
+
+---
+
+## Gameplay 🕹️
+
+### Stats
+| Stat | Display | Range | What happens when it drops |
+|---|---|---|---|
+| Hunger | FOOD | 0–100 | Below 30 → Hungry state. Below 10 for 2 ticks → Sick |
+| Happiness | HAPPY | 0–100 | Below 50 → Bored. Low energy drains it faster |
+| Energy | ENERGY | 0–100 | Below 30 → Tired. Below 20 → Happiness penalty −25/tick |
+
+Stats decay every 30 seconds. Evolved cats decay at half the rate.
+
+### Actions
+| Action | Effect | Limit |
+|---|---|---|
+| FEED | Opens food menu. Increases Food. | Disabled at 5 poos |
+| PLAY | +20 Happiness, −10 Energy, −10 Food | Disabled if Energy ≤ 10 |
+| REST | +30 Energy, −5 Happiness | No limit |
+
+Each cat has a secretly preferred food (Kibble, Tuna, or Treats). The preferred food gives double the hunger gain. Discover it through trial and error.
+
+### State Diagram
+
+```
+FINE  (default — all stats ≥ 50)
+├── Food < 30                          → HUNGRY
+├── Energy < 30                        → TIRED
+├── Happiness < 50                     → BORED
+├── All stats ≥ 75, poos ≤ 1          → HAPPY
+│     └── Happiness = 100 for 2 ticks → SHOWING BELLY
+├── Food < 10 for 2 ticks
+│   or 2+ poos for 1 tick             → SICK → recover → FINE
+└── All stats ≥ 90 for 2 ticks        → EVOLVED (permanent)
+
+Priority: SICK > EVOLVED > SHOWING BELLY > HAPPY > HUNGRY > TIRED > BORED > FINE
+```
+
+### How to reach each state
+
+| State | How to trigger |
+|---|---|
+| FINE | Default — start the game |
+| HUNGRY | Stop feeding. Food drops below 30 in ~5 minutes |
+| TIRED | Stop resting. Energy drops below 30 in ~4 minutes |
+| BORED | Stop playing. Happiness drops below 50 in ~5 minutes |
+| HAPPY | Keep all stats above 75 with ≤ 1 poo. Feed and rest frequently |
+| SHOWING BELLY | Keep Happiness at 100 for 2 consecutive ticks (60 seconds) |
+| SICK | Let Food drop below 10 for 60 seconds, OR leave 2+ poos for 30 seconds |
+| EVOLVED | Keep ALL stats above 90 for 60 seconds straight. No shortcuts* |
+
+*Or are there? 😼
+
+### Recovery from Sick
+1. Clean all poos
+2. Feed until Food ≥ 50
+3. Raise Happiness above 50
+
+All three must be true at the same time.
+
+---
+
+## The Riddle 🔮
+
+The game contains a help screen accessible via the **(i)** button on any screen. It is titled **DECIPHER ME, HUMAN**.
+
+It will tell you everything you need to know.
+It will tell you nothing directly.
+
+Six cryptic passages hint at:
+- The core care loop
+- The urgency of time
+- The path to evolution (and a secret about speed)
+- The poo situation
+- The belly event
+- A hidden interaction that requires trust
+
+Good luck, human.
+
+---
+
 ## Spec-Driven Development Workflow
 
 This project was built following the SDD workflow from the Spec-Driven Development with Coding Agents course.
