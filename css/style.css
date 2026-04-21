@@ -587,10 +587,12 @@ body::after {
 }
 #food-cancel:hover { color: var(--danger); }
 
-/* ── Help Button (welcome screen — matches ghost button size) ────────────── */
-#help-btn-welcome    { font-size: 7px; padding: 8px 14px; }
-/* Cancel the margin-top that .theme-toggle inherits inside the footer row */
-#theme-toggle-welcome { margin-top: 0; }
+/* ── Welcome footer — force both buttons to identical size ───────────────── */
+.welcome-footer-row .btn {
+  font-size: 7px !important;
+  padding: 8px 14px !important;
+  margin-top: 0 !important;
+}
 
 /* Help button on game screen — matches .game-link plain text style */
 .help-link-btn {
@@ -618,23 +620,23 @@ body::after {
 .help-overlay-content { text-align: left; }
 
 /* Slide container — fixed height so nav buttons don't jump */
-.help-slides { min-height: 130px; margin-bottom: 16px; }
+.help-slides { min-height: 160px; margin-bottom: 16px; }
 
 /* Title-only slide */
 .help-slide-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 130px;
+  min-height: 160px;
   text-align: center;
 }
 
 .help-title-big {
-  font-size: 12px;
+  font-size: 18px;
   color: var(--accent-yellow);
-  text-shadow: 0 0 10px var(--accent-yellow);
-  letter-spacing: 2px;
-  line-height: 2.2;
+  text-shadow: 0 0 16px var(--accent-yellow), 0 0 32px rgba(255,255,0,0.3);
+  letter-spacing: 3px;
+  line-height: 2;
 }
 
 /* Content slides — heading vs body distinction */

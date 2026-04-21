@@ -1,6 +1,6 @@
 # Tiny Cat 🐱
 
-A browser-based Tamagotchi-style virtual pet built as a submission for the DeepLearning.AI 7-Day Challenge: Tiny Tamagotchi MVP with Spec-Driven Development.
+A browser-based Tamagotchi-style virtual pet built as a submission for the DeepLearning.AI 7-Day Challenge: Tiny Tamagotchi MVP with [Spec-Driven Development](https://learn.deeplearning.ai/courses/spec-driven-development-with-coding-agents/information).
 
 👉 [Play Tiny Cat](https://fonsecagabriella.github.io/tiny_cat/)
 
