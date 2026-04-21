@@ -4,6 +4,10 @@ A browser-based Tamagotchi-style virtual pet built as a submission for the DeepL
 
 👉 [Play Tiny Cat](https://fonsecagabriella.github.io/tiny_cat/)
 
+<p align="center">
+  <img src="http://imgabi.com/wp-content/uploads/2026/04/tiny_cat_flow.gif" alt="Demo of my project" width="600">
+</p>
+
 ---
 
 ## What is Tiny Cat?
@@ -106,6 +110,10 @@ The game contains a help screen accessible via the **(i)** button on any screen.
 It will tell you everything you need to know.
 It will tell you nothing directly.
 
+<p align="center">
+  <img src="http://imgabi.com/wp-content/uploads/2026/04/tiny_cat_flow.gif" alt="Demo of my project" width="600">
+</p>
+
 Six cryptic passages hint at:
 - The core care loop
 - The urgency of time
@@ -118,7 +126,7 @@ Good luck, human.
 
 ---
 
-## Spec-Driven Development Workflow
+## Spec-Driven Development Workflow 👩🏽‍💻
 
 This project was built following the SDD workflow from the Spec-Driven Development with Coding Agents course.
 
@@ -184,7 +192,7 @@ Constitution files were updated throughout the project as decisions evolved — 
 
 ---
 
-## Repository Structure
+## Repository Structure 🗂️
 
 ```
 specs/
@@ -217,7 +225,7 @@ prompts/                ← initial prompts used before each phase/feature imple
 
 ---
 
-## Built with
+## Built with 🛠️
 
 - Vanilla HTML5, CSS3, JavaScript (ES6+) — no framework
 - Inline SVG pixel art sprite
