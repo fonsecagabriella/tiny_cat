@@ -5,7 +5,7 @@ A browser-based Tamagotchi-style virtual pet built as a submission for the DeepL
 👉 [Play Tiny Cat](https://fonsecagabriella.github.io/tiny_cat/)
 
 <p align="center">
-  <img src="http://imgabi.com/wp-content/uploads/2026/04/tiny_cat_flow.gif" alt="Demo of my project" width="600">
+  <img src="https://imgabi.com/wp-content/uploads/2026/04/tiny_cat_flow.gif" alt="Demo of my project" width="600">
 </p>
 
 ---
@@ -111,7 +111,7 @@ It will tell you everything you need to know.
 It will tell you nothing directly.
 
 <p align="center">
-  <img src="http://imgabi.com/wp-content/uploads/2026/04/tiny_cat_flow.gif" alt="Demo of my project" width="600">
+  <img src="https://imgabi.com/wp-content/uploads/2026/04/tiny_cat_flow.gif" alt="Demo of my project" width="600">
 </p>
 
 Six cryptic passages hint at:
