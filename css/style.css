@@ -278,6 +278,7 @@ body::after {
 }
 .state-label.state-happy   { border-color: var(--accent-green);   color: var(--accent-green); }
 .state-label.state-hungry  { border-color: var(--btn-feed);       color: var(--btn-feed); }
+.state-label.state-tired   { border-color: #aa88ff;               color: #aa88ff; }
 .state-label.state-bored   { border-color: var(--accent-magenta); color: var(--accent-magenta); }
 .state-label.state-fine    { border-color: var(--text-dim);       color: var(--text-dim); }
 .state-label.state-belly   { border-color: var(--accent-yellow);  color: var(--accent-yellow); }
@@ -632,8 +633,8 @@ body::after {
 }
 
 .help-title-big {
-  font-size: 18px;
-  color: var(--accent-yellow);
+  font-size: 18px !important;
+  color: var(--accent-yellow) !important;
   text-shadow: 0 0 16px var(--accent-yellow), 0 0 32px rgba(255,255,0,0.3);
   letter-spacing: 3px;
   line-height: 2;

@@ -54,7 +54,7 @@ A `setInterval` running every 30 seconds drives stat decay. On each tick:
 6. Re-render UI.
 
 ### State machine
-The state is a derived value computed on every tick and after every user action, not stored independently. Priority evaluation order: Sick > Evolved > Showing Belly > Happy > Hungry > Bored > Fine.
+The state is a derived value computed on every tick and after every user action, not stored independently. Priority evaluation order: Sick > Evolved > Showing Belly > Happy > Hungry > Tired > Bored > Fine.
 
 ### Page Visibility
 The app listens to `document.addEventListener('visibilitychange')`. When the tab returns to focus, elapsed ticks since hide are calculated and applied in bulk.

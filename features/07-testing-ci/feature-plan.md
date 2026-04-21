@@ -136,4 +136,4 @@ Add to the "Counter Behaviour" section:
 ### Verification
 
 After each addition: run `npm test`. All existing tests must continue to pass.
-Final expected count: 81 existing + 4 (Tired) + 2 (feedCount/playCount) = **87 tests**.
+Final expected count: 84 existing + 4 (Tired) + 2 (feedCount/playCount) = **90 tests**.

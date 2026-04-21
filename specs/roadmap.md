@@ -126,7 +126,7 @@ Definition of done: App is live at the GitHub Pages URL and passes all success c
 
 ---
 
-## Phase 7 — Testing & CI
+## ✅ Phase 7 — Testing & CI
 
 **Goal:** All game logic added or changed since Phase 1 is covered by automated unit tests. GitHub Actions CI stays green.
 
