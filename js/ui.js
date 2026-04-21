@@ -588,6 +588,34 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('theme-toggle-welcome').addEventListener('click', onThemeToggle);
   document.getElementById('theme-toggle-game').addEventListener('click', onThemeToggle);
 
+  // Help overlay carousel (wired early so nothing else can block it)
+  var helpSlides = document.querySelectorAll('.help-slide');
+  var helpDots   = document.querySelectorAll('.help-dot');
+  var helpIdx    = 0;
+
+  function showHelpSlide(idx) {
+    helpSlides.forEach(function (s, i) { s.classList.toggle('hidden', i !== idx); });
+    helpDots.forEach(function (d, i)   { d.classList.toggle('active',  i === idx); });
+    document.getElementById('help-prev').disabled = idx === 0;
+    document.getElementById('help-next').disabled = idx === helpSlides.length - 1;
+    helpIdx = idx;
+  }
+
+  function openHelp()  {
+    showHelpSlide(0);
+    showOverlay('help-overlay');
+  }
+  function closeHelp() { hideOverlay('help-overlay'); }
+
+  document.getElementById('help-btn-welcome').addEventListener('click', openHelp);
+  document.getElementById('help-btn-game').addEventListener('click',    openHelp);
+  document.getElementById('help-close').addEventListener('click',       closeHelp);
+  document.getElementById('help-prev').addEventListener('click', function () { if (helpIdx > 0) showHelpSlide(helpIdx - 1); });
+  document.getElementById('help-next').addEventListener('click', function () { if (helpIdx < helpSlides.length - 1) showHelpSlide(helpIdx + 1); });
+  document.getElementById('help-overlay').addEventListener('click', function (e) {
+    if (e.target === this) closeHelp();
+  });
+
   // Group 2 — Name input / Start button
   nameInput.addEventListener('input', function () {
     startBtn.disabled = nameInput.value.trim().length === 0;
@@ -713,32 +741,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Tap to Pet
   initTapPet();
-
-  // Help overlay carousel
-  var helpSlides = document.querySelectorAll('.help-slide');
-  var helpDots   = document.querySelectorAll('.help-dot');
-  var helpIdx    = 0;
-
-  function showHelpSlide(idx) {
-    helpSlides.forEach(function (s, i) { s.classList.toggle('hidden', i !== idx); });
-    helpDots.forEach(function (d, i)   { d.classList.toggle('active', i === idx); });
-    document.getElementById('help-prev').disabled = idx === 0;
-    document.getElementById('help-next').disabled = idx === helpSlides.length - 1;
-    helpIdx = idx;
-  }
-
-  function openHelp() {
-    showHelpSlide(0);
-    document.getElementById('help-overlay').classList.remove('hidden');
-  }
-  function closeHelp() { document.getElementById('help-overlay').classList.add('hidden'); }
-
-  document.getElementById('help-btn-welcome').addEventListener('click', openHelp);
-  document.getElementById('help-btn-game').addEventListener('click', openHelp);
-  document.getElementById('help-close').addEventListener('click', closeHelp);
-  document.getElementById('help-prev').addEventListener('click', function () { if (helpIdx > 0) showHelpSlide(helpIdx - 1); });
-  document.getElementById('help-next').addEventListener('click', function () { if (helpIdx < helpSlides.length - 1) showHelpSlide(helpIdx + 1); });
-  document.getElementById('help-overlay').addEventListener('click', function (e) {
-    if (e.target === this) closeHelp();
-  });
 });

@@ -587,8 +587,8 @@ body::after {
 }
 #food-cancel:hover { color: var(--danger); }
 
-/* ── Help Button (welcome screen — matches ghost button) ─────────────────── */
-/* #help-btn-welcome already uses .btn.btn-ghost — no extra styles needed */
+/* ── Help Button (welcome screen — matches ghost button size) ────────────── */
+#help-btn-welcome { font-size: 7px; padding: 8px 14px; }
 
 /* Help button on game screen — matches .game-link plain text style */
 .help-link-btn {
