@@ -212,6 +212,7 @@ tests/
   workflows/
     test.yml            ← CI: runs on every push
 index.html              ← single entry point
+prompts/                ← initial prompts used before each phase/feature implementation. 
 ```
 
 ---
