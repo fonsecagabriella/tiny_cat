@@ -118,10 +118,11 @@ Deliverables:
 - Responsive layout: playable on mobile (≥ 320 px wide) and desktop
 - Stat labels shown in full on screen: 'Food' (display only), 'Happiness', 'Energy'
 - Page Visibility API: elapsed ticks computed and applied on tab return
+- `(i)` help button visible on both welcome and game screens at all times; opens a cryptic riddle overlay ("DECIPHER ME, HUMAN") hinting at all core mechanics and Easter eggs without naming them directly
 - Final GitHub Pages deployment with correct base URL
 - Manual cross-browser check: Chrome, Firefox, Safari
 
-Definition of done: App is live at the GitHub Pages URL and passes all success criteria in `mission.md` and all smoke tests in `validation.md`. Stat labels display in full with no abbreviations.
+Definition of done: App is live at the GitHub Pages URL and passes all success criteria in `mission.md` and all smoke tests in `validation.md`. Stat labels display in full with no abbreviations. Help overlay accessible from both screens.
 
 ---
 
