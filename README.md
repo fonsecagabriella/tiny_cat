@@ -4,7 +4,13 @@ A browser-based Tamagotchi-style virtual pet built as a submission for the DeepL
 
 👉 [Play Tiny Cat](https://fonsecagabriella.github.io/tiny_cat/)
 
+***"Spec first, code second. The cat did the rest."***
+
 <img width="50%" alt="tiny_cat_flow_short" src="https://github.com/user-attachments/assets/652ea6b4-7a67-46a9-aaa2-89bb9e1c00af" />
+
+
+
+
 
 ---
 
