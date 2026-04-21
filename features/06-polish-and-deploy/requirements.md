@@ -54,6 +54,19 @@ All requirements are traceable to Phase 6 deliverables in `specs/roadmap.md`.
 
 ---
 
+## REQ-P06 — Help Screen
+
+| ID | Requirement |
+|---|---|
+| P06.1 | `(i)` button is visible on both the welcome screen and game screen at all times |
+| P06.2 | Clicking `(i)` opens an overlay with the title "DECIPHER ME, HUMAN" |
+| P06.3 | The overlay contains the riddle text defined in `specs/mission.md` — Help Screen section |
+| P06.4 | The overlay is dismissed by clicking the CLOSE button or clicking outside the overlay box |
+| P06.5 | Opening or closing the overlay does not pause or affect game state in any way |
+| P06.6 | The overlay style matches the retro pixel aesthetic: border, font, and colour palette consistent with existing overlays |
+
+---
+
 ## REQ-P05 — Deployment
 
 | ID | Requirement |

@@ -29,7 +29,10 @@
       </div>
       <button id="start-btn" class="btn btn-primary" disabled>&#9658; START</button>
     </div>
-    <button id="theme-toggle-welcome" class="btn btn-ghost theme-toggle">Light Mode</button>
+    <div class="welcome-footer-row">
+      <button id="theme-toggle-welcome" class="btn btn-ghost theme-toggle">Light Mode</button>
+      <button id="help-btn-welcome" class="btn btn-ghost help-btn">(i)</button>
+    </div>
   </div>
 
   <!-- ── Transition Screen ─────────────────────────────────────── -->
@@ -45,7 +48,7 @@
 
     <div class="game-links">
       <a href="https://github.com/fonsecagabriella/tiny_cat" class="game-link" target="_blank" rel="noopener">GITHUB</a>
-      
+      <button id="help-btn-game" class="btn btn-ghost help-btn">(i)</button>
     </div>
 
     <div class="game-header">
@@ -132,6 +135,47 @@
       <p id="evolved-time"></p>
       <p>READY FOR WORLD DOMINATION!<br>DECAY RATE<br>HAS DECREASED.</p>
       <button id="evolution-ok" class="btn btn-primary" style="width:100%">&#9658; CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- Help overlay -->
+  <div id="help-overlay" class="overlay hidden">
+    <div class="overlay-content help-overlay-content">
+      <h2 class="help-title">DECIPHER ME, HUMAN</h2>
+
+      <div class="help-section">
+        <p class="help-heading">I. THE FOUR SACRED RITES</p>
+        <p class="help-body">THOU SHALT FEED ME, PLAY WITH ME, AND LET ME REST.<br>NEGLECT ANY, AND I SHALL MAKE MY DISPLEASURE... KNOWN.<br>(HINT: I HAVE OPINIONS ABOUT EMPTY FOOD BOWLS.)</p>
+      </div>
+
+      <div class="help-section">
+        <p class="help-heading">II. THE PASSAGE OF TIME</p>
+        <p class="help-body">I GROW HUNGRY. I GROW BORED. I GROW TIRED.<br>EVEN AS YOU READ THIS, THE CLOCK TICKS.<br>DO NOT TARRY, HUMAN.</p>
+      </div>
+
+      <div class="help-section">
+        <p class="help-heading">III. THE GREAT ASCENSION</p>
+        <p class="help-body">KEEP ALL MY NEEDS ABOVE THE HIGH MARK —<br>NOT JUST ONCE, BUT CONSISTENTLY.<br>IT HAPPENS EXACTLY ONCE. FOREVER.<br>BUT SOME HUMANS HAVE DONE IT... FASTER.</p>
+      </div>
+
+      <div class="help-section">
+        <p class="help-heading">IV. THE ANCIENT POO WISDOM</p>
+        <p class="help-body">ONE IS TOLERABLE. TWO IS AN OMEN.<br>CLEAN THEM, OR FACE THE CONSEQUENCES.<br>(THE CONSEQUENCES ARE MEDICAL.)</p>
+      </div>
+
+      <div class="help-section">
+        <p class="help-heading">V. THE SECRET LANGUAGE OF BELLIES</p>
+        <p class="help-body">WHEN THE TIME IS RIGHT, I SHALL REVEAL MY BELLY.<br>CHOOSE WISELY. I HAVE CLAWS.</p>
+      </div>
+
+      <div class="help-section">
+        <p class="help-heading">VI. THE TRUST RITUAL</p>
+        <p class="help-body">I DO NOT KNOW YOU YET, HUMAN.<br>EARN MY TRUST — FEED ME, PLAY WITH ME.<br>THEN... PERHAPS... TRY TOUCHING ME.<br>PERHAPS.</p>
+      </div>
+
+      <p class="help-sign">~ YOUR CAT, PROBABLY</p>
+
+      <button id="help-close" class="btn btn-primary" style="width:100%; margin-top:20px;">[ CLOSE ]</button>
     </div>
   </div>
 

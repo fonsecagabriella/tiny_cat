@@ -19,6 +19,10 @@ Run these first. All must pass before proceeding to flow tests.
 | S06 | Inspect `.bar-fill` transition in DevTools Styles | `transition` property uses `steps()` |
 | S07 | Inspect `.cat-svg` in DevTools Styles | `image-rendering: pixelated` present |
 | S08 | Click theme toggle | Both dark and light modes render without broken layout |
+| S09 | Inspect welcome screen | `(i)` button visible |
+| S10 | Start a game; inspect game screen | `(i)` button visible |
+| S11 | Click `(i)` on either screen | Overlay opens with title "DECIPHER ME, HUMAN" |
+| S12 | Click CLOSE or outside the overlay box | Overlay dismisses cleanly |
 
 ---
 
@@ -133,6 +137,18 @@ Document findings in the Known Findings section below.
 | Chrome | | | |
 | Firefox | | | |
 | Safari | | | |
+
+---
+
+### Flow 7 — Help Overlay
+
+1. Start a game; note the current `cat.hunger` value in console
+2. Click `(i)` — overlay opens
+3. Wait 35 seconds (long enough for one tick to fire)
+4. Dismiss overlay (CLOSE or click outside)
+5. Check `cat.hunger` in console
+
+Expected: `cat.hunger` has decreased normally — the game loop continued running while the overlay was open. No console errors.
 
 ---
 

@@ -222,6 +222,17 @@ Only one state is displayed at a time.
 
 ---
 
+## Help Screen
+
+- A small `(i)` button is visible on both the welcome screen and game screen at all times
+- Clicking it opens an overlay titled "DECIPHER ME, HUMAN"
+- The overlay contains a cryptic riddle written in cat personality / retro pixel tone
+- The riddle hints at all core mechanics and both Easter eggs without naming them directly
+- Overlay is dismissed by clicking anywhere outside it or a CLOSE button
+- No game state is affected by opening or closing the overlay
+
+---
+
 ## Easter Eggs
 
 | # | Name | Trigger | Effect |

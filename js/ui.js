@@ -713,4 +713,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Tap to Pet
   initTapPet();
+
+  // Help overlay
+  function openHelp() { document.getElementById('help-overlay').classList.remove('hidden'); }
+  function closeHelp() { document.getElementById('help-overlay').classList.add('hidden'); }
+
+  document.getElementById('help-btn-welcome').addEventListener('click', openHelp);
+  document.getElementById('help-btn-game').addEventListener('click', openHelp);
+  document.getElementById('help-close').addEventListener('click', closeHelp);
+  document.getElementById('help-overlay').addEventListener('click', function (e) {
+    if (e.target === this) closeHelp();
+  });
 });

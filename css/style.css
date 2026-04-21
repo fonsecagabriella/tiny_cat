@@ -477,6 +477,7 @@ body::after {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
+  align-items: center;
   padding: 0 0 10px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 12px;
@@ -585,6 +586,66 @@ body::after {
   letter-spacing: 1px;
 }
 #food-cancel:hover { color: var(--danger); }
+
+/* ── Help Button ─────────────────────────────────────────────────────────── */
+.help-btn {
+  font-size: 7px;
+  padding: 4px 8px;
+  border-color: var(--text-dim);
+  color: var(--text-dim);
+  box-shadow: none;
+  letter-spacing: 0;
+}
+.help-btn:hover:not(:disabled) { color: var(--accent-cyan); border-color: var(--accent-cyan); background: transparent; }
+
+/* Welcome screen footer row */
+.welcome-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* ── Help Overlay ────────────────────────────────────────────────────────── */
+.help-overlay-content {
+  max-height: 80vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.help-title {
+  font-size: 10px;
+  color: var(--accent-yellow);
+  text-shadow: 0 0 8px var(--accent-yellow);
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.help-section { margin-bottom: 16px; }
+
+.help-heading {
+  font-size: 7px;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.help-body {
+  font-size: 6px;
+  color: var(--text-primary);
+  line-height: 2.2;
+  margin-bottom: 0;
+  letter-spacing: 1px;
+}
+
+.help-sign {
+  font-size: 6px;
+  color: var(--text-dim);
+  text-align: right;
+  margin-top: 16px;
+  letter-spacing: 1px;
+}
 
 /* ── Overlays ────────────────────────────────────────────────────────────── */
 .overlay {
