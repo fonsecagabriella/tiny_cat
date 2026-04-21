@@ -4,7 +4,7 @@ A browser-based Tamagotchi-style virtual pet built as a submission for the DeepL
 
 👉 [Play Tiny Cat](https://fonsecagabriella.github.io/tiny_cat/)
 
-<img width="75%" alt="tiny_cat_flow_short" src="https://github.com/user-attachments/assets/652ea6b4-7a67-46a9-aaa2-89bb9e1c00af" />
+<img width="50%" alt="tiny_cat_flow_short" src="https://github.com/user-attachments/assets/652ea6b4-7a67-46a9-aaa2-89bb9e1c00af" />
 
 ---
 
@@ -108,7 +108,7 @@ The game contains a help screen accessible via the **(i)** button on any screen.
 It will tell you everything you need to know.
 It will tell you nothing directly.
 
-<img width="70%" alt="tiny_cat_clues" src="https://github.com/user-attachments/assets/99189548-c9c7-4b29-8be6-c610da97cc32" />
+<img width="40%" alt="tiny_cat_clues" src="https://github.com/user-attachments/assets/99189548-c9c7-4b29-8be6-c610da97cc32" />
 
 
 Six cryptic passages hint at:
