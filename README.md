@@ -4,12 +4,12 @@ A browser-based Tamagotchi-style virtual pet built as a submission for the DeepL
 
 👉 [Play Tiny Cat](https://fonsecagabriella.github.io/tiny_cat/)
 
+📺 [Watch the walkthrough on Youtube](https://www.youtube.com/watch?v=vfXnm7pEqP0)
+
+
 ***"Spec first, code second. The cat did the rest."***
 
-<img width="50%" alt="tiny_cat_flow_short" src="https://github.com/user-attachments/assets/652ea6b4-7a67-46a9-aaa2-89bb9e1c00af" />
-
-
-
+<img width="50%" alt="tiny_cat_flow_short" src="imgs/youtube_thumbnail.png" />
 
 
 ---
@@ -29,6 +29,9 @@ Core features:
 - Dark/light mode toggle
 - Responsive layout (mobile and desktop)
 - Pixel art inline SVG sprite with state-driven expressions
+
+<img width="50%" alt="tiny_cat_flow_short" src="https://github.com/user-attachments/assets/652ea6b4-7a67-46a9-aaa2-89bb9e1c00af" />
+
 
 ---
 
