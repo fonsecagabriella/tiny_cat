@@ -62,7 +62,7 @@ Verify: Click a poo → confirm → the poo icon blinks 3 times then disappears.
 **Goal:** Confirm all flows work together without regression after Group 2 changes.
 
 Tasks:
-1. Run `npm test` — all 81 tests must pass
+1. Run `npm test` — all 90 tests must pass
 2. Manually verify each Level 2 flow in `validation.md` (console shortcuts provided there)
 
 Verify: All automated tests pass. All manual validation checks pass.
