@@ -138,7 +138,7 @@ State priority (highest → lowest): Sick > Evolved > Showing Belly > Happy > Hu
 Only one state is displayed at a time.
 
 **On entering Sick:** Happiness is immediately set to `floor(current Happiness / 2)`.
-**Evolved blocks Sick transition:** a cat that is Evolved cannot become Sick, but Sick blocks evolution.
+**Evolved blocks Sick transition:** Evolved cats like to think they don't need a human. They still do. Their decay is halved and Sick cannot touch them — but neglect the stats and they will find new ways to make their disappointment known.
 
 ---
 
